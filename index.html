@@ -31,6 +31,12 @@
     <div id="root"></div>
 
     <script type="text/babel">
+        // =========================================================================
+        // PENTING: GANTI URL DI BAWAH INI DENGAN URL WEB APP GOOGLE APPS SCRIPT-MU!
+        // Gunakan format https://script.google.com/macros/s/.../exec
+        // =========================================================================
+        const GAS_API_URL = 'https://script.google.com/macros/s/MASUKKAN_ID_SCRIPT_KAMU/exec';
+        
         // --- INITIAL DATA ---
         const initialJadwalRabu = {
             title: "Ibadah Permintaan Doa (Rabu)", time: "19:00 WIB - selesai",
@@ -826,11 +832,36 @@
                 else if (subTab === 'perjamuan') baseData.perjamuan = editForm;
                 
                 setIsSavingJadwal(true);
-                if (typeof google !== 'undefined' && google.script) {
-                    google.script.run.withSuccessHandler(() => { setIsSavingJadwal(false); setJadwalDB({...jadwalDB, [date]: baseData}); setEditingDate(null); }).saveJadwalSingle(date, baseData);
-                } else {
-                    setTimeout(() => { setIsSavingJadwal(false); setJadwalDB({...jadwalDB, [date]: baseData}); setEditingDate(null); }, 500);
+                
+                // CEK JIKA URL BELUM DIATUR, GUNAKAN MODE DEMO
+                if (GAS_API_URL.includes('MASUKKAN_ID_SCRIPT_KAMU') || !GAS_API_URL.startsWith('http')) {
+                    setTimeout(() => {
+                        setIsSavingJadwal(false);
+                        setJadwalDB({...jadwalDB, [date]: baseData});
+                        setEditingDate(null);
+                        alert("Mode Demo: Perubahan jadwal disimpan sementara di perangkat Anda (karena URL Google Script belum terhubung).");
+                    }, 500);
+                    return;
                 }
+
+                fetch(GAS_API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify({ action: 'saveJadwal', tanggal: date, payload: baseData })
+                })
+                .then(res => res.json())
+                .then(result => {
+                    setIsSavingJadwal(false);
+                    if (result.success) {
+                        setJadwalDB({...jadwalDB, [date]: baseData});
+                        setEditingDate(null);
+                    } else { alert("Gagal menyimpan: " + result.error); }
+                })
+                .catch(err => {
+                    setIsSavingJadwal(false);
+                    console.error("Fetch error:", err);
+                    alert("Terjadi kesalahan jaringan.");
+                });
             };
 
             const handleDeleteRow = (date) => {
@@ -838,24 +869,70 @@
                 if(window.confirm(`Kembalikan jadwal ${formatIndoDateShort(date)} ke default?`)) {
                     setIsSavingJadwal(true);
                     const defaultData = JSON.parse(JSON.stringify(isRabu ? initialJadwalRabu : initialJadwalSabat));
-                    if (typeof google !== 'undefined' && google.script) {
-                        google.script.run.withSuccessHandler(() => { setIsSavingJadwal(false); const newDB = {...jadwalDB}; delete newDB[date]; setJadwalDB(newDB); }).saveJadwalSingle(date, defaultData);
-                    } else {
-                        setTimeout(() => { setIsSavingJadwal(false); const newDB = {...jadwalDB}; delete newDB[date]; setJadwalDB(newDB); }, 500);
+                    
+                    // CEK JIKA URL BELUM DIATUR, GUNAKAN MODE DEMO
+                    if (GAS_API_URL.includes('MASUKKAN_ID_SCRIPT_KAMU') || !GAS_API_URL.startsWith('http')) {
+                        setTimeout(() => {
+                            setIsSavingJadwal(false);
+                            const newDB = {...jadwalDB}; 
+                            delete newDB[date]; 
+                            setJadwalDB(newDB);
+                            alert("Mode Demo: Jadwal dihapus (sementara).");
+                        }, 500);
+                        return;
                     }
+
+                    fetch(GAS_API_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                        body: JSON.stringify({ action: 'saveJadwal', tanggal: date, payload: defaultData })
+                    })
+                    .then(res => res.json())
+                    .then(result => {
+                        setIsSavingJadwal(false);
+                        if (result.success) {
+                            const newDB = {...jadwalDB}; 
+                            delete newDB[date]; 
+                            setJadwalDB(newDB);
+                        }
+                    })
+                    .catch(err => {
+                        setIsSavingJadwal(false);
+                        console.error(err);
+                    });
                 }
             };
 
             const handleSimpanPejabat = () => {
                 setIsSavingPejabat(true);
-                if (typeof google !== 'undefined' && google.script) {
-                    google.script.run.withSuccessHandler(() => { setIsSavingPejabat(false); alert("Berhasil! Data Pelayan Jemaat sudah tersimpan ke Google Sheets."); }).savePejabatData(dataPejabat);
-                } else {
-                    setTimeout(() => { setIsSavingPejabat(false); alert("Berhasil! (Mode Simulasi)"); }, 1000);
+
+                // CEK JIKA URL BELUM DIATUR, GUNAKAN MODE DEMO
+                if (GAS_API_URL.includes('MASUKKAN_ID_SCRIPT_KAMU') || !GAS_API_URL.startsWith('http')) {
+                    setTimeout(() => {
+                        setIsSavingPejabat(false);
+                        alert("Mode Demo: Data Pelayan Jemaat disimpan sementara di perangkat Anda.");
+                    }, 500);
+                    return;
                 }
+
+                fetch(GAS_API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify({ action: 'savePejabat', payload: dataPejabat })
+                })
+                .then(res => res.json())
+                .then(result => {
+                    setIsSavingPejabat(false);
+                    if (result.success) alert("Berhasil! Data Pelayan Jemaat sudah tersimpan ke Google Sheets.");
+                    else alert("Gagal menyimpan: " + result.error);
+                })
+                .catch(err => {
+                    setIsSavingPejabat(false);
+                    console.error(err);
+                    alert("Terjadi kesalahan jaringan.");
+                });
             };
 
-            // Menambahkan fitur Auto-Compress Image sebelum dikirim ke Google Sheets
             const handleFileChange = (e, id) => {
                 const file = e.target.files[0];
                 if (!file) return;
@@ -866,7 +943,6 @@
                     const img = new Image();
                     img.src = event.target.result;
                     img.onload = () => {
-                        // Batasi ukuran maksimal gambar (avatar size)
                         const MAX_WIDTH = 150;
                         const MAX_HEIGHT = 150;
                         let width = img.width;
@@ -878,17 +954,14 @@
                             if (height > MAX_HEIGHT) { width *= MAX_HEIGHT / height; height = MAX_HEIGHT; }
                         }
 
-                        // Render ke canvas untuk dikompres
                         const canvas = document.createElement('canvas');
                         canvas.width = width;
                         canvas.height = height;
                         const ctx = canvas.getContext('2d');
                         ctx.drawImage(img, 0, 0, width, height);
 
-                        // Ekspor menjadi format JPEG dengan kualitas 60% (sangat ringan)
                         const dataUrl = canvas.toDataURL('image/jpeg', 0.6);
                         
-                        // Simpan hasil kompresi ke state
                         const updated = dataPejabat.map(p => p.id === id ? { ...p, img: dataUrl } : p);
                         setDataPejabat(updated);
                     };
@@ -1042,17 +1115,16 @@
             nextSabat.setDate(today.getDate() + ((6 - today.getDay() + 7) % 7));
             const sabatYMD = toYMD(nextSabat);
 
-            // Perhitungan Hari Perjamuan (Sabtu Terakhir di Bulan Mar, Jun, Okt, Des)
             const getNextPerjamuan = () => {
                 const year = today.getFullYear();
-                const months = [2, 5, 9, 11]; // 0-indexed (Mar, Jun, Oct, Dec)
+                const months = [2, 5, 9, 11]; // Mar, Jun, Oct, Dec
                 for (let m of months) {
                     let lastDay = new Date(year, m + 1, 0);
                     let lastSat = new Date(lastDay);
                     lastSat.setDate(lastDay.getDate() - ((lastDay.getDay() + 1) % 7));
                     if (today <= lastSat) return lastSat;
                 }
-                let lastDayNextYear = new Date(year + 1, 3, 0); // Next year March
+                let lastDayNextYear = new Date(year + 1, 3, 0);
                 let lastSatNextYear = new Date(lastDayNextYear);
                 lastSatNextYear.setDate(lastDayNextYear.getDate() - ((lastDayNextYear.getDay() + 1) % 7));
                 return lastSatNextYear;
@@ -1061,7 +1133,6 @@
             const nextPerjamuanObj = getNextPerjamuan();
             const perjamuanYMD = toYMD(nextPerjamuanObj);
             
-            // Logic: Tampilkan 8 hari sebelum hari-H
             const diffTime = nextPerjamuanObj - today;
             const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
             const showPerjamuan = diffDays <= 8 && diffDays >= 0;
@@ -1071,15 +1142,24 @@
             const activePerjamuan = jadwalDB[perjamuanYMD]?.perjamuan || initialJadwalSabat.perjamuan;
 
             React.useEffect(() => {
-                if (typeof google !== 'undefined' && google.script) {
-                    google.script.run.withSuccessHandler((data) => {
+                // FALLBACK MODE DEMO JIKA URL BELUM DI GANTI
+                if (GAS_API_URL.includes('MASUKKAN_ID_SCRIPT_KAMU') || !GAS_API_URL.startsWith('http')) {
+                    console.log('Mode Demo: Menggunakan data bawaan karena URL API belum diatur.');
+                    setIsAppLoading(false);
+                    return;
+                }
+
+                fetch(GAS_API_URL + '?action=getData')
+                    .then(response => response.json())
+                    .then(data => {
                         if (data.dataPejabat) setDataPejabat(data.dataPejabat);
                         if (data.jadwalDB) setJadwalDB(data.jadwalDB);
                         setIsAppLoading(false);
-                    }).getAppData();
-                } else {
-                    setIsAppLoading(false);
-                }
+                    })
+                    .catch(error => {
+                        console.error('Gagal mengambil data dari Google Sheets:', error);
+                        setIsAppLoading(false); 
+                    });
             }, []);
 
             const [isAdminLoggedIn, setIsAdminLoggedIn] = React.useState(false);
@@ -1117,7 +1197,18 @@
             };
 
             if (isAppLoading) {
-                return (<div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center"><div className="w-12 h-12 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin mb-4"></div><p className="text-gray-500 font-medium animate-pulse">Memuat data ART1S...</p></div>);
+                return (
+                    <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-between py-12">
+                        <div className="flex-1 flex flex-col items-center justify-center w-full">
+                            <div className="w-12 h-12 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin mb-4"></div>
+                            <p className="text-gray-500 font-medium animate-pulse">Memuat data ART1S...</p>
+                        </div>
+                        <div className="mt-auto flex flex-col items-center opacity-40">
+                            <img src="art1s-outline.svg" alt="ART1S Logo" className="h-6 w-auto mb-2" />
+                            <span className="text-[10px] font-medium text-gray-500">Tech Team 2026</span>
+                        </div>
+                    </div>
+                );
             }
 
             return (
@@ -1126,14 +1217,16 @@
 
                     <header className="md:hidden bg-white shadow-sm sticky top-0 z-50">
                         <div className="flex justify-between items-center px-4 py-3">
-                            <h1 className="text-xl font-extrabold text-blue-800 tracking-tight">ART1S</h1>
+                            <img src="art1s-outline.svg" alt="ART1S" className="h-7 w-auto" />
                             {isAdminLoggedIn ? (<button onClick={handleLogout} className="p-2 text-red-600 hover:text-red-800 transition"><Icon name="LogOut" className="w-5 h-5" /></button>) : (<button onClick={handleAdminClick} className="p-2 text-gray-600 hover:text-gray-900 transition"><Icon name="LogIn" className="w-5 h-5" /></button>)}
                         </div>
                     </header>
 
                     <header className="hidden md:block bg-white shadow-sm sticky top-0 z-50">
                         <div className="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
-                            <div className="flex items-center space-x-2"><h1 className="text-2xl font-extrabold text-blue-800 tracking-tight">ART1S</h1></div>
+                            <div className="flex items-center space-x-2">
+                                <img src="art1s-outline.svg" alt="ART1S" className="h-8 w-auto" />
+                            </div>
                             <nav className="flex space-x-1">
                                 {tabs.map(tab => (<button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`px-4 py-2 rounded-md font-medium transition flex items-center space-x-2 ${activeTab.startsWith(tab.id) ? 'bg-blue-50 text-blue-700' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'}`}><Icon name={tab.icon} className="w-4 h-4" /><span>{tab.label}</span></button>))}
                             </nav>
