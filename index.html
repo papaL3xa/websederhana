@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ART1S - GMAHK Tidar 1 Surabaya</title>
     
+    <!-- Favicon ditambahkan di sini -->
+    <link rel="icon" type="image/svg+xml" href="./art1s-bg.svg">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
@@ -37,6 +40,21 @@
         const GAS_API_URL = "https://script.google.com/macros/s/AKfycbw-gjmAlFA09OJb7uJAO5YLBy4Hy1fkOP9Fi_TCOsnvfK91-xfJv-IGJQaAY98_Il2-Bg/exec";
 
         // --- INITIAL DATA ---
+        const defaultSusunan = {
+            ssLaguBuka: "LS ...",
+            ssLaguTutup: "LS ...",
+            kAyatBersahutan: "No. ...",
+            kLaguBuka: "LS ...",
+            kLaguPujian1_show: false,
+            kLaguPujian1_judul: "Koor / Vocal Group",
+            kLaguPujian2_show: false,
+            kLaguPujian2_judul: "Koor / Vocal Group",
+            kLaguPujian3_show: false,
+            kLaguPujian3_judul: "Koor / Vocal Group",
+            kAyatInti: "...",
+            kLaguTutup: "LS ..."
+        };
+
         const initialJadwalRabu = {
             title: "Ibadah Permintaan Doa (Rabu)", time: "19:00 WIB - selesai",
             petugas: [ { tugas: "Pemimpin Acara", nama: "Bpk. Budi Santoso" }, { tugas: "Renungan", nama: "Pdt. Samuel" }, { tugas: "Doa Syafaat", nama: "Ibu Maria" }, { tugas: "Diakon", nama: "Sdr. Joshua" } ]
@@ -50,6 +68,7 @@
             khotbah: [ { tugas: "Khotbah", nama: "Pdt. David Siregar" }, { tugas: "Pendamping 1", nama: "Bpk. Daniel" }, { tugas: "Pendamping 2", nama: "Sdr. Kevin" }, { tugas: "Cerita Anak-anak", nama: "Ibu Sarah" }, { tugas: "Song Leader", nama: "Sdr. Joshua" }, { tugas: "Lagu Pujian", nama: "Koor Pemuda" } ],
             diakon: [ { tugas: "Diakon 1", nama: "Bpk. Sitorus" }, { tugas: "Diakon 2", nama: "Bpk. Tambunan" }, { tugas: "Diakones 1", nama: "Ibu Sitorus" }, { tugas: "Diakones 2", nama: "Ibu Tambunan" } ],
             musik: [ { tugas: "Pianis", nama: "Sdri. Grace" }, { tugas: "Keyboardis", nama: "Sdr. Kevin" }, { tugas: "Gitaris", nama: "Sdr. Alex" }, { tugas: "Bassist", nama: "Sdr. Brian" }, { tugas: "Saxophonist", nama: "Bpk. Anton" }, { tugas: "Violinist", nama: "Sdri. Clara" } ],
+            susunan: defaultSusunan,
             perjamuan: [
                 { tugas: "P. Roti & Anggur 1", nama: "" }, { tugas: "P. Roti & Anggur 2", nama: "" }, { tugas: "P. Roti & Anggur 3", nama: "" }, { tugas: "P. Roti & Anggur 4", nama: "" }, { tugas: "P. Roti & Anggur 5", nama: "" },
                 { tugas: "P. Basuh Kaki 1", nama: "" }, { tugas: "P. Basuh Kaki 2", nama: "" }, { tugas: "P. Basuh Kaki 3", nama: "" },
@@ -98,7 +117,9 @@
                 Trash: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>,
                 Settings: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>,
                 Eye: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>,
-                EyeOff: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" x2="22" y1="2" y2="22"/></svg>
+                EyeOff: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" x2="22" y1="2" y2="22"/></svg>,
+                Music: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>,
+                List: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
             };
             return icons[name] || null;
         };
@@ -152,6 +173,20 @@
                         <Icon name="Phone" className="w-6 h-6 md:w-8 md:h-8 text-orange-600 mb-1 md:mb-2" />
                         <h3 className="font-bold text-[11px] md:text-sm leading-tight text-gray-800">Hubungi<br/>Kami</h3>
                     </div>
+
+                    {/* Tambahan 3 Tombol Baru */}
+                    <a href="https://play.lagusion.org/" target="_blank" rel="noopener noreferrer" className="bg-white p-3 md:p-6 rounded-xl shadow-sm flex flex-col items-center text-center justify-center hover:bg-yellow-50 transition border border-gray-100">
+                        <Icon name="Music" className="w-6 h-6 md:w-8 md:h-8 text-yellow-500 mb-1 md:mb-2" />
+                        <h3 className="font-bold text-[11px] md:text-sm leading-tight text-gray-800">Lagu<br/>Sion</h3>
+                    </a>
+                    <div onClick={() => setActiveTab('susunan_ibadah')} className="bg-white p-3 md:p-6 rounded-xl shadow-sm flex flex-col items-center text-center justify-center cursor-pointer hover:bg-indigo-50 transition border border-gray-100">
+                        <Icon name="List" className="w-6 h-6 md:w-8 md:h-8 text-indigo-600 mb-1 md:mb-2" />
+                        <h3 className="font-bold text-[11px] md:text-sm leading-tight text-gray-800">Susunan<br/>Ibadah</h3>
+                    </div>
+                    <div onClick={() => setActiveTab('persembahan')} className="bg-white p-3 md:p-6 rounded-xl shadow-sm flex flex-col items-center text-center justify-center cursor-pointer hover:bg-teal-50 transition border border-gray-100">
+                        <Icon name="Gift" className="w-6 h-6 md:w-8 md:h-8 text-teal-600 mb-1 md:mb-2" />
+                        <h3 className="font-bold text-[11px] md:text-sm leading-tight text-gray-800">Persembahan<br/>Donasi</h3>
+                    </div>
                 </div>
 
                 <div className="bg-white p-4 md:p-5 rounded-xl shadow-sm border border-gray-100">
@@ -170,38 +205,91 @@
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch">
-                    <div className="bg-white p-4 md:p-5 rounded-xl shadow-sm border border-gray-100">
-                        <div className="flex items-center space-x-2 mb-3">
-                            <Icon name="Headphones" className="w-4 h-4 md:w-5 md:h-5 text-purple-600" />
-                            <h3 className="font-bold text-sm md:text-base text-gray-800">Podcast Kita</h3>
-                        </div>
-                        <div className="w-full flex justify-center">
-                            <iframe data-testid="embed-iframe" style={{ borderRadius: '12px' }} src="https://open.spotify.com/embed/show/6PcT9H7ksbbJjsnl1qUfKB/video?utm_source=generator" width="100%" height="152" frameBorder="0" allowFullScreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                        </div>
+                <div className="bg-white p-4 md:p-5 rounded-xl shadow-sm border border-gray-100">
+                    <div className="flex items-center space-x-2 mb-3">
+                        <Icon name="Headphones" className="w-4 h-4 md:w-5 md:h-5 text-purple-600" />
+                        <h3 className="font-bold text-sm md:text-base text-gray-800">Podcast Kita</h3>
                     </div>
-                    <div className="bg-white p-4 md:p-5 rounded-xl shadow-sm border border-gray-100 flex flex-col justify-center h-full">
-                        <div className="flex items-center space-x-2 mb-3 md:mb-4">
-                            <Icon name="Download" className="w-4 h-4 md:w-5 md:h-5 text-green-600" />
-                            <h3 className="font-bold text-sm md:text-base text-gray-800">Download Aplikasi</h3>
-                        </div>
-                        <div className="grid grid-cols-2 gap-2">
-                            <a href="https://play.lagusion.org/" target="_blank" rel="noopener noreferrer" className="flex flex-col md:flex-row items-center justify-center md:justify-start space-y-1 md:space-y-0 md:space-x-3 bg-gray-50 border border-gray-200 hover:bg-gray-100 px-2 py-3 md:py-3 md:px-4 rounded-lg transition text-center md:text-left shadow-sm">
-                                <img src="https://www.google.com/s2/favicons?domain=play.lagusion.org&sz=128" alt="Lagu Sion Logo" className="w-5 h-5 md:w-6 md:h-6 rounded-sm object-contain" />
-                                <span className="text-[11px] md:text-sm font-medium leading-tight">Lagu Sion</span>
-                            </a>
-                            <a href="https://sabbath-school.adventech.io/in/" target="_blank" rel="noopener noreferrer" className="flex flex-col md:flex-row items-center justify-center md:justify-start space-y-1 md:space-y-0 md:space-x-3 bg-gray-50 border border-gray-200 hover:bg-gray-100 px-2 py-3 md:py-3 md:px-4 rounded-lg transition text-center md:text-left shadow-sm">
-                                <img src="https://www.google.com/s2/favicons?domain=sabbath-school.adventech.io&sz=128" alt="Sabbath School Logo" className="w-5 h-5 md:w-6 md:h-6 rounded-sm object-contain" />
-                                <span className="text-[11px] md:text-sm font-medium leading-tight">Sabbath School</span>
-                            </a>
-                        </div>
+                    <div className="w-full flex justify-center">
+                        <iframe data-testid="embed-iframe" style={{ borderRadius: '12px' }} src="https://open.spotify.com/embed/show/6PcT9H7ksbbJjsnl1qUfKB/video?utm_source=generator" width="100%" height="152" frameBorder="0" allowFullScreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                     </div>
                 </div>
+
                 <footer className="mt-8 pt-6 pb-2 border-t border-gray-200 text-center text-gray-400 text-xs md:text-sm">
                     Copyright &copy; by ART1S Tech Team 2026
                 </footer>
             </div>
         );
+
+        const SusunanIbadah = ({ setActiveTab, activeSabat, sabatYMD }) => {
+            const getOfficer = (arr, role) => arr?.find(p => p.tugas === role)?.nama || "-";
+            const susunan = activeSabat.susunan || defaultSusunan;
+
+            const renderItem = (title, desc, isHighlight = false) => (
+                <div className={`flex flex-col sm:flex-row sm:items-center py-2.5 border-b border-gray-100 last:border-0 ${isHighlight ? 'bg-blue-50/50 rounded-lg px-3 -mx-3' : ''}`}>
+                    <span className="text-sm text-gray-500 w-full sm:w-1/3 mb-0.5 sm:mb-0 font-medium">{title}</span>
+                    <span className={`text-sm sm:w-2/3 ${isHighlight ? 'font-bold text-blue-700' : 'font-bold text-gray-800'}`}>{desc}</span>
+                </div>
+            );
+
+            return (
+                <div className="space-y-6 animate-fade-in">
+                    <button onClick={() => setActiveTab('home')} className="text-blue-600 font-medium flex items-center hover:underline mb-2">&larr; Kembali ke Home</button>
+                    
+                    <div className="bg-white p-5 md:p-8 rounded-xl shadow-sm border border-gray-100">
+                        <div className="text-center mb-8">
+                            <h2 className="text-2xl font-black text-gray-800 uppercase tracking-wide">Susunan Ibadah</h2>
+                            <p className="text-gray-500 font-bold mt-1">Sabat, {formatIndoDate(sabatYMD)}</p>
+                        </div>
+
+                        <div className="space-y-10">
+                            {/* SEKOLAH SABAT */}
+                            <div>
+                                <h3 className="text-lg font-bold text-blue-800 border-b-2 border-blue-100 pb-2 mb-4 flex items-center"><Icon name="BookOpen" className="w-5 h-5 mr-2" /> Sekolah Sabat</h3>
+                                <div className="flex flex-col">
+                                    {renderItem("Lagu Pengantar", "LS 205")}
+                                    {renderItem("Pemimpin Acara", getOfficer(activeSabat.sekolahSabat, "Pembawa Acara"))}
+                                    {renderItem("Lagu Buka", susunan.ssLaguBuka)}
+                                    {renderItem("Ayat Inti & Doa Buka", getOfficer(activeSabat.sekolahSabat, "Ayat Inti & Doa Buka"))}
+                                    {renderItem("Berita Misi", getOfficer(activeSabat.sekolahSabat, "Berita Misi"))}
+                                    {renderItem("Diskusi Sekolah Sabat", "Kelas Pemuda 1, Kelas Dewasa, Kelas Pemuda 2, Kelas Anak-anak")}
+                                    {renderItem("Pelayanan Perorangan", getOfficer(activeSabat.sekolahSabat, "Pelayanan Perorangan"))}
+                                    {renderItem("Lagu Tutup", susunan.ssLaguTutup)}
+                                    {renderItem("Doa Tutup", getOfficer(activeSabat.sekolahSabat, "Pelayanan Perorangan"))}
+                                </div>
+                            </div>
+
+                            {/* KHOTBAH */}
+                            <div>
+                                <h3 className="text-lg font-bold text-green-800 border-b-2 border-green-100 pb-2 mb-4 flex items-center"><Icon name="List" className="w-5 h-5 mr-2" /> Khotbah / Ibadah Umum</h3>
+                                <div className="flex flex-col">
+                                    {renderItem("Lagu Pengantar", "LS 515")}
+                                    {renderItem("Lagu Sambutan", "LS 1")}
+                                    {renderItem("Doa Buka", getOfficer(activeSabat.khotbah, "Khotbah"))}
+                                    {renderItem("Ayat Bersahutan", susunan.kAyatBersahutan)}
+                                    {renderItem("Lagu Buka", susunan.kLaguBuka)}
+                                    {renderItem("Doa Syafaat", getOfficer(activeSabat.khotbah, "Pendamping 1"))}
+                                    {susunan.kLaguPujian1_show && renderItem("Lagu Pujian", susunan.kLaguPujian1_judul, true)}
+                                    {renderItem("Bacaan Persembahan", getOfficer(activeSabat.khotbah, "Pendamping 2"))}
+                                    {renderItem("Lagu Persembahan", "LS 260")}
+                                    {renderItem("Doa Persembahan", getOfficer(activeSabat.khotbah, "Pendamping 2"))}
+                                    {susunan.kLaguPujian2_show && renderItem("Lagu Pujian", susunan.kLaguPujian2_judul, true)}
+                                    {renderItem("Cerita Anak-anak", getOfficer(activeSabat.khotbah, "Cerita Anak-anak"))}
+                                    {susunan.kLaguPujian3_show && renderItem("Lagu Pujian", susunan.kLaguPujian3_judul, true)}
+                                    {renderItem("Ayat Inti", susunan.kAyatInti)}
+                                    {renderItem("Lagu Tema", "Misi Kita")}
+                                    {renderItem("Khotbah", getOfficer(activeSabat.khotbah, "Khotbah"), true)}
+                                    {renderItem("Lagu Tutup", susunan.kLaguTutup)}
+                                    {renderItem("Doa Berkat", "Pdt. David Indra Utomo")}
+                                    {renderItem("Lagu Berkat", "LS 60")}
+                                    {renderItem("Pengumuman", "Dept. Komunikasi")}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
 
         const Belajar = ({ setActiveTab }) => {
             const items = [
@@ -872,18 +960,23 @@
                 { id: 'rabu', label: 'Rabu: Permintaan Doa' },
                 { id: 'sekolahSabat', label: 'Sekolah Sabat' },
                 { id: 'khotbah', label: 'Ibadah Khotbah' },
+                { id: 'susunanAcara', label: 'Susunan Acara (Lagu)' },
                 { id: 'musik', label: 'Petugas Musik' },
                 { id: 'diakon', label: 'Petugas Diakon' },
                 { id: 'perjamuan', label: 'Perjamuan Kudus' }
             ];
 
             const currentSubTabLabel = subTabs.find(t => t.id === subTab)?.label || '';
-            const columns = getActiveArray(isRabu ? initialJadwalRabu : initialJadwalSabat, subTab).map(p => p.tugas);
+            const columns = subTab === 'susunanAcara' ? ["Status Pengisian"] : getActiveArray(isRabu ? initialJadwalRabu : initialJadwalSabat, subTab).map(p => p.tugas);
 
             const handleEditClick = (date) => {
                 setEditingDate(date);
                 const existingData = jadwalDB[date] || (isRabu ? initialJadwalRabu : initialJadwalSabat);
-                setEditForm(JSON.parse(JSON.stringify(getActiveArray(existingData, subTab))));
+                if (subTab === 'susunanAcara') {
+                    setEditForm(JSON.parse(JSON.stringify(existingData.susunan || defaultSusunan)));
+                } else {
+                    setEditForm(JSON.parse(JSON.stringify(getActiveArray(existingData, subTab))));
+                }
             };
 
             const handleEditFormChange = (index, value) => {
@@ -892,12 +985,17 @@
                 setEditForm(newForm);
             };
 
+            const handleEditFormChangeSusunan = (field, value) => {
+                setEditForm(prev => ({ ...prev, [field]: value }));
+            };
+
             // SIMPAN JADWAL
             const handleSaveRow = (date) => {
                 const baseData = jadwalDB[date] ? JSON.parse(JSON.stringify(jadwalDB[date])) : JSON.parse(JSON.stringify(isRabu ? initialJadwalRabu : initialJadwalSabat));
                 if (subTab === 'rabu') baseData.petugas = editForm;
                 else if (subTab === 'sekolahSabat') baseData.sekolahSabat = editForm;
                 else if (subTab === 'khotbah') baseData.khotbah = editForm;
+                else if (subTab === 'susunanAcara') baseData.susunan = editForm;
                 else if (subTab === 'diakon') baseData.diakon = editForm;
                 else if (subTab === 'musik') baseData.musik = editForm;
                 else if (subTab === 'perjamuan') baseData.perjamuan = editForm;
@@ -1098,7 +1196,7 @@
                                             </div>
                                         </div>
                                         <div className="overflow-x-auto">
-                                            <table className={`w-full text-left border-collapse ${subTab === 'perjamuan' ? 'min-w-[2800px]' : 'min-w-[800px]'}`}>
+                                            <table className={`w-full text-left border-collapse ${subTab === 'perjamuan' ? 'min-w-[2800px]' : subTab === 'susunanAcara' ? 'min-w-[400px]' : 'min-w-[800px]'}`}>
                                                 <thead className="bg-[#eef2f6] border-b border-gray-200">
                                                     <tr>
                                                         <th className="p-4 text-xs font-extrabold text-slate-700 uppercase tracking-wider text-center w-36">Tanggal</th>
@@ -1111,7 +1209,12 @@
                                                         const isEditing = editingDate === date;
                                                         const rowData = jadwalDB[date] || (isRabu ? initialJadwalRabu : initialJadwalSabat);
                                                         const dataArray = getActiveArray(rowData, subTab);
-                                                        const isSaved = !!jadwalDB[date] && (subTab === 'rabu' ? !!jadwalDB[date].petugas : !!jadwalDB[date][subTab]);
+                                                        let isSaved = false;
+                                                        if (subTab === 'susunanAcara') {
+                                                            isSaved = !!jadwalDB[date] && !!jadwalDB[date].susunan;
+                                                        } else {
+                                                            isSaved = !!jadwalDB[date] && (subTab === 'rabu' ? !!jadwalDB[date].petugas : !!jadwalDB[date][subTab]);
+                                                        }
                                                         
                                                         return (
                                                             <tr key={date} className="hover:bg-slate-50 transition group">
@@ -1119,31 +1222,98 @@
                                                                     <div className="font-bold text-slate-500 text-xs mb-0.5">{isRabu ? 'RABU' : 'SABTU'}</div>
                                                                     <div className="text-sm font-extrabold text-slate-800">{formatIndoDateShort(date)}</div>
                                                                 </td>
-                                                                {dataArray.map((p, i) => (
-                                                                    <td key={i} className="p-4 text-center align-middle border-r border-gray-50">
-                                                                        {isEditing ? (
-                                                                            <input type="text" value={editForm[i]?.nama || ''} onChange={(e) => handleEditFormChange(i, e.target.value)} className="w-full p-2 border border-blue-400 rounded text-sm text-center font-medium focus:ring-2 focus:ring-blue-500 outline-none shadow-inner" />
-                                                                        ) : (
-                                                                            <div className="flex flex-col items-center">
-                                                                                <span className="font-medium text-slate-800 text-sm mb-1.5">{p.nama}</span>
-                                                                                <span className={`text-[9px] px-2.5 py-0.5 rounded-full font-bold uppercase tracking-wider shadow-sm ${isSaved ? 'bg-[#fff5e6] text-[#e59c3f] border border-[#f5dfb8]' : 'bg-white text-gray-400 border border-gray-200'}`}>{isSaved ? 'Terkunci' : 'Default'}</span>
+                                                                
+                                                                {subTab === 'susunanAcara' ? (
+                                                                    isEditing ? (
+                                                                        <td colSpan="2" className="p-4 bg-blue-50/30">
+                                                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
+                                                                                <div className="space-y-3 p-4 bg-white rounded-lg border border-gray-200 shadow-sm h-fit">
+                                                                                    <h4 className="font-bold text-sm text-blue-800 border-b pb-1">Sekolah Sabat</h4>
+                                                                                    <div><label className="text-xs text-gray-500 block mb-1">Lagu Buka</label><input type="text" value={editForm.ssLaguBuka || ''} onChange={(e) => handleEditFormChangeSusunan('ssLaguBuka', e.target.value)} placeholder="Contoh: LS 210" className="w-full p-2 border rounded text-sm outline-none focus:border-blue-500 bg-gray-50" /></div>
+                                                                                    <div><label className="text-xs text-gray-500 block mb-1">Lagu Tutup</label><input type="text" value={editForm.ssLaguTutup || ''} onChange={(e) => handleEditFormChangeSusunan('ssLaguTutup', e.target.value)} placeholder="Contoh: LS 251" className="w-full p-2 border rounded text-sm outline-none focus:border-blue-500 bg-gray-50" /></div>
+                                                                                </div>
+                                                                                <div className="space-y-3 p-4 bg-white rounded-lg border border-gray-200 shadow-sm">
+                                                                                    <h4 className="font-bold text-sm text-green-800 border-b pb-1">Khotbah Umum</h4>
+                                                                                    <div><label className="text-xs text-gray-500 block mb-1">Ayat Bersahutan</label><input type="text" value={editForm.kAyatBersahutan || ''} onChange={(e) => handleEditFormChangeSusunan('kAyatBersahutan', e.target.value)} placeholder="Contoh: No. 12" className="w-full p-2 border rounded text-sm outline-none focus:border-green-500 bg-gray-50" /></div>
+                                                                                    <div><label className="text-xs text-gray-500 block mb-1">Lagu Buka</label><input type="text" value={editForm.kLaguBuka || ''} onChange={(e) => handleEditFormChangeSusunan('kLaguBuka', e.target.value)} placeholder="Contoh: LS 15" className="w-full p-2 border rounded text-sm outline-none focus:border-green-500 bg-gray-50" /></div>
+                                                                                    
+                                                                                    <div className="flex items-center space-x-2 border border-gray-100 p-2 rounded bg-gray-50">
+                                                                                        <input type="checkbox" checked={editForm.kLaguPujian1_show || false} onChange={(e) => handleEditFormChangeSusunan('kLaguPujian1_show', e.target.checked)} className="w-4 h-4 text-green-600 rounded" />
+                                                                                        <div className="flex-1">
+                                                                                            <label className="text-[10px] text-gray-500 font-bold block mb-0.5">Lagu Pujian 1 (Sebelum Bacaan Persembahan)</label>
+                                                                                            {editForm.kLaguPujian1_show && <input type="text" value={editForm.kLaguPujian1_judul || ''} onChange={(e) => handleEditFormChangeSusunan('kLaguPujian1_judul', e.target.value)} placeholder="Misal: Koor Pemuda" className="w-full p-1.5 border rounded text-xs outline-none focus:border-green-500 bg-white" />}
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div className="flex items-center space-x-2 border border-gray-100 p-2 rounded bg-gray-50">
+                                                                                        <input type="checkbox" checked={editForm.kLaguPujian2_show || false} onChange={(e) => handleEditFormChangeSusunan('kLaguPujian2_show', e.target.checked)} className="w-4 h-4 text-green-600 rounded" />
+                                                                                        <div className="flex-1">
+                                                                                            <label className="text-[10px] text-gray-500 font-bold block mb-0.5">Lagu Pujian 2 (Sebelum Cerita Anak)</label>
+                                                                                            {editForm.kLaguPujian2_show && <input type="text" value={editForm.kLaguPujian2_judul || ''} onChange={(e) => handleEditFormChangeSusunan('kLaguPujian2_judul', e.target.value)} placeholder="Misal: Vocal Group" className="w-full p-1.5 border rounded text-xs outline-none focus:border-green-500 bg-white" />}
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div className="flex items-center space-x-2 border border-gray-100 p-2 rounded bg-gray-50">
+                                                                                        <input type="checkbox" checked={editForm.kLaguPujian3_show || false} onChange={(e) => handleEditFormChangeSusunan('kLaguPujian3_show', e.target.checked)} className="w-4 h-4 text-green-600 rounded" />
+                                                                                        <div className="flex-1">
+                                                                                            <label className="text-[10px] text-gray-500 font-bold block mb-0.5">Lagu Pujian 3 (Sesudah Cerita Anak)</label>
+                                                                                            {editForm.kLaguPujian3_show && <input type="text" value={editForm.kLaguPujian3_judul || ''} onChange={(e) => handleEditFormChangeSusunan('kLaguPujian3_judul', e.target.value)} placeholder="Misal: Solo" className="w-full p-1.5 border rounded text-xs outline-none focus:border-green-500 bg-white" />}
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div><label className="text-xs text-gray-500 block mb-1">Ayat Inti</label><input type="text" value={editForm.kAyatInti || ''} onChange={(e) => handleEditFormChangeSusunan('kAyatInti', e.target.value)} placeholder="Contoh: Yohanes 3:16" className="w-full p-2 border rounded text-sm outline-none focus:border-green-500 bg-gray-50" /></div>
+                                                                                    <div><label className="text-xs text-gray-500 block mb-1">Lagu Tutup</label><input type="text" value={editForm.kLaguTutup || ''} onChange={(e) => handleEditFormChangeSusunan('kLaguTutup', e.target.value)} placeholder="Contoh: LS 300" className="w-full p-2 border rounded text-sm outline-none focus:border-green-500 bg-gray-50" /></div>
+                                                                                </div>
                                                                             </div>
-                                                                        )}
-                                                                    </td>
-                                                                ))}
-                                                                <td className="p-4 text-center align-middle">
-                                                                    {isEditing ? (
-                                                                        <div className="flex justify-center space-x-1.5">
-                                                                            <button onClick={() => handleSaveRow(date)} disabled={isSavingJadwal} className={`p-2 text-white bg-green-500 hover:bg-green-600 rounded-md transition shadow-sm ${isSavingJadwal ? 'opacity-50' : ''}`}><Icon name="Check" className="w-4 h-4" /></button>
-                                                                            <button onClick={() => setEditingDate(null)} className="p-2 text-white bg-slate-400 hover:bg-slate-500 rounded-md transition shadow-sm"><Icon name="X" className="w-4 h-4" /></button>
-                                                                        </div>
+                                                                            <div className="mt-4 flex justify-end space-x-2">
+                                                                                <button onClick={() => setEditingDate(null)} className="px-4 py-2 text-slate-600 bg-slate-200 hover:bg-slate-300 rounded-lg text-sm font-bold transition">Batal</button>
+                                                                                <button onClick={() => handleSaveRow(date)} disabled={isSavingJadwal} className={`px-4 py-2 text-white bg-green-500 hover:bg-green-600 rounded-lg text-sm font-bold transition shadow-sm ${isSavingJadwal ? 'opacity-50' : ''}`}><Icon name="Check" className="w-4 h-4 mr-1 inline" /> Simpan Susunan</button>
+                                                                            </div>
+                                                                        </td>
                                                                     ) : (
-                                                                        <div className="flex justify-center space-x-2 opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity">
-                                                                            <button onClick={() => handleEditClick(date)} className="p-2 text-slate-500 hover:text-slate-800 hover:bg-slate-200 rounded-md transition" title="Edit Baris"><Icon name="Edit" className="w-4 h-4" /></button>
-                                                                            {isSaved ? (<button onClick={() => handleDeleteRow(date)} className="p-2 text-slate-500 hover:text-red-600 hover:bg-red-100 rounded-md transition" title="Hapus (Kembali ke Default)"><Icon name="Trash" className="w-4 h-4" /></button>) : (<div className="w-8"></div>)}
-                                                                        </div>
-                                                                    )}
-                                                                </td>
+                                                                        <>
+                                                                            <td className="p-4 text-center align-middle border-r border-gray-50">
+                                                                                <span className={`text-[10px] px-3 py-1 rounded-full font-bold uppercase tracking-wider shadow-sm ${isSaved ? 'bg-green-100 text-green-700 border border-green-200' : 'bg-gray-100 text-gray-500 border border-gray-200'}`}>
+                                                                                    {isSaved ? 'Sudah Diatur' : 'Default'}
+                                                                                </span>
+                                                                            </td>
+                                                                            <td className="p-4 text-center align-middle">
+                                                                                <div className="flex justify-center space-x-2 opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity">
+                                                                                    <button onClick={() => handleEditClick(date)} className="p-2 text-slate-500 hover:text-slate-800 hover:bg-slate-200 rounded-md transition" title="Edit Susunan"><Icon name="Edit" className="w-4 h-4" /></button>
+                                                                                    {isSaved ? (<button onClick={() => handleDeleteRow(date)} className="p-2 text-slate-500 hover:text-red-600 hover:bg-red-100 rounded-md transition" title="Reset Default"><Icon name="Trash" className="w-4 h-4" /></button>) : (<div className="w-8"></div>)}
+                                                                                </div>
+                                                                            </td>
+                                                                        </>
+                                                                    )
+                                                                ) : (
+                                                                    <>
+                                                                        {dataArray.map((p, i) => (
+                                                                            <td key={i} className="p-4 text-center align-middle border-r border-gray-50">
+                                                                                {isEditing ? (
+                                                                                    <input type="text" value={editForm[i]?.nama || ''} onChange={(e) => handleEditFormChange(i, e.target.value)} className="w-full p-2 border border-blue-400 rounded text-sm text-center font-medium focus:ring-2 focus:ring-blue-500 outline-none shadow-inner" />
+                                                                                ) : (
+                                                                                    <div className="flex flex-col items-center">
+                                                                                        <span className="font-medium text-slate-800 text-sm mb-1.5">{p.nama}</span>
+                                                                                        <span className={`text-[9px] px-2.5 py-0.5 rounded-full font-bold uppercase tracking-wider shadow-sm ${isSaved ? 'bg-[#fff5e6] text-[#e59c3f] border border-[#f5dfb8]' : 'bg-white text-gray-400 border border-gray-200'}`}>{isSaved ? 'Terkunci' : 'Default'}</span>
+                                                                                    </div>
+                                                                                )}
+                                                                            </td>
+                                                                        ))}
+                                                                        <td className="p-4 text-center align-middle">
+                                                                            {isEditing ? (
+                                                                                <div className="flex justify-center space-x-1.5">
+                                                                                    <button onClick={() => handleSaveRow(date)} disabled={isSavingJadwal} className={`p-2 text-white bg-green-500 hover:bg-green-600 rounded-md transition shadow-sm ${isSavingJadwal ? 'opacity-50' : ''}`}><Icon name="Check" className="w-4 h-4" /></button>
+                                                                                    <button onClick={() => setEditingDate(null)} className="p-2 text-white bg-slate-400 hover:bg-slate-500 rounded-md transition shadow-sm"><Icon name="X" className="w-4 h-4" /></button>
+                                                                                </div>
+                                                                            ) : (
+                                                                                <div className="flex justify-center space-x-2 opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity">
+                                                                                    <button onClick={() => handleEditClick(date)} className="p-2 text-slate-500 hover:text-slate-800 hover:bg-slate-200 rounded-md transition" title="Edit Baris"><Icon name="Edit" className="w-4 h-4" /></button>
+                                                                                    {isSaved ? (<button onClick={() => handleDeleteRow(date)} className="p-2 text-slate-500 hover:text-red-600 hover:bg-red-100 rounded-md transition" title="Hapus (Kembali ke Default)"><Icon name="Trash" className="w-4 h-4" /></button>) : (<div className="w-8"></div>)}
+                                                                                </div>
+                                                                            )}
+                                                                        </td>
+                                                                    </>
+                                                                )}
                                                             </tr>
                                                         )
                                                     })}
@@ -1330,6 +1500,7 @@
                     case 'pindah_masuk': return <PindahMasuk setActiveTab={setActiveTab} dataPejabat={dataPejabat} />;
                     case 'hubungi': return <Hubungi setActiveTab={setActiveTab} dataPejabat={dataPejabat} />;
                     case 'form_acms': return <FormACMS setActiveTab={setActiveTab} />;
+                    case 'susunan_ibadah': return <SusunanIbadah setActiveTab={setActiveTab} activeSabat={activeSabat} sabatYMD={sabatYMD} />;
                     case 'admin_dashboard': return isAdminLoggedIn ? <AdminDashboard dataPejabat={dataPejabat} setDataPejabat={setDataPejabat} jadwalDB={jadwalDB} setJadwalDB={setJadwalDB} adminToken={adminToken} setAdminToken={setAdminToken} youtubeUrl={youtubeUrl} setYoutubeUrl={setYoutubeUrl} /> : <Home setActiveTab={setActiveTab} youtubeUrl={youtubeUrl} />;
                     default: return <Home setActiveTab={setActiveTab} youtubeUrl={youtubeUrl} />;
                 }
@@ -1381,7 +1552,7 @@
                     <main className="flex-1 max-w-5xl mx-auto w-full p-4 md:p-6 pb-24 md:pb-8">
                         <div className="mb-6 md:mb-8">
                             <h2 className="text-2xl md:text-3xl font-bold text-gray-800 capitalize">
-                                {activeTab === 'home' ? 'Selamat Datang' : activeTab === 'belajar' ? 'Halaman Belajar' : activeTab.startsWith('belajar_') ? 'Detail Pembelajaran' : activeTab === 'keanggotaan' ? 'Keanggotaan Jemaat' : activeTab === 'member_baru' ? 'Permohonan Member Baru' : activeTab === 'pindah_masuk' ? 'Permohonan Pindah Masuk' : activeTab === 'hubungi' ? 'Hubungi Kami' : activeTab === 'form_acms' ? 'Formulir Pindah Masuk' : activeTab === 'admin_dashboard' ? 'Dashboard Admin' : activeTab}
+                                {activeTab === 'home' ? 'Selamat Datang' : activeTab === 'belajar' ? 'Halaman Belajar' : activeTab.startsWith('belajar_') ? 'Detail Pembelajaran' : activeTab === 'keanggotaan' ? 'Keanggotaan Jemaat' : activeTab === 'member_baru' ? 'Permohonan Member Baru' : activeTab === 'pindah_masuk' ? 'Permohonan Pindah Masuk' : activeTab === 'hubungi' ? 'Hubungi Kami' : activeTab === 'form_acms' ? 'Formulir Pindah Masuk' : activeTab === 'susunan_ibadah' ? 'Susunan Ibadah' : activeTab === 'admin_dashboard' ? 'Dashboard Admin' : activeTab}
                             </h2>
                             {activeTab === 'home' && <p className="text-gray-500 mt-1">Gereja Masehi Advent Hari Ketujuh Tidar 1 Surabaya</p>}
                             {activeTab === 'admin_dashboard' && <p className="text-gray-500 mt-1">Kelola data dinamis untuk website ART1S.</p>}
