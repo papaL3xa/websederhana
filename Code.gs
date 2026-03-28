@@ -149,6 +149,42 @@ function doGet(e) {
     }
   }
   
+  // --- Baca Susunan Lagu Khusus ---
+  var sheetSusunan = ss.getSheetByName("Susunan_Lagu");
+  if (sheetSusunan) {
+    var dataSusunan = sheetSusunan.getDataRange().getValues();
+    for (var r = 1; r < dataSusunan.length; r++) {
+      var tglObj = dataSusunan[r][0];
+      if (!tglObj || tglObj === "") continue;
+      
+      var dateStr = typeof tglObj === 'object' ? Utilities.formatDate(tglObj, Session.getScriptTimeZone(), "yyyy-MM-dd") : String(tglObj);
+      
+      if (!jadwalDB[dateStr]) {
+        var isRabu = new Date(dateStr + "T00:00:00").getDay() === 3;
+        if (isRabu) {
+          jadwalDB[dateStr] = { title: "Ibadah Permintaan Doa (Rabu)", time: "19:00 WIB - selesai", petugas: [] };
+        } else {
+          jadwalDB[dateStr] = { title: "Ibadah Sabat (Sabtu)", time: "09:00 - 12:00 WIB", sekolahSabatTime: "09:00 - 10:30 WIB", khotbahTime: "10:30 - 12:00 WIB", sekolahSabat: [], khotbah: [], diakon: [], musik: [], perjamuan: [] };
+        }
+      }
+      
+      jadwalDB[dateStr].susunan = {
+        ssLaguBuka: dataSusunan[r][1] ? String(dataSusunan[r][1]) : "",
+        ssLaguTutup: dataSusunan[r][2] ? String(dataSusunan[r][2]) : "",
+        kAyatBersahutan: dataSusunan[r][3] ? String(dataSusunan[r][3]) : "",
+        kLaguBuka: dataSusunan[r][4] ? String(dataSusunan[r][4]) : "",
+        kLaguPujian1_show: dataSusunan[r][5] === "YA",
+        kLaguPujian1_judul: dataSusunan[r][6] ? String(dataSusunan[r][6]) : "",
+        kLaguPujian2_show: dataSusunan[r][7] === "YA",
+        kLaguPujian2_judul: dataSusunan[r][8] ? String(dataSusunan[r][8]) : "",
+        kLaguPujian3_show: dataSusunan[r][9] === "YA",
+        kLaguPujian3_judul: dataSusunan[r][10] ? String(dataSusunan[r][10]) : "",
+        kAyatInti: dataSusunan[r][11] ? String(dataSusunan[r][11]) : "",
+        kLaguTutup: dataSusunan[r][12] ? String(dataSusunan[r][12]) : ""
+      };
+    }
+  }
+  
   return ContentService.createTextOutput(JSON.stringify({
     dataPejabat: dataPejabat,
     jadwalDB: jadwalDB,
