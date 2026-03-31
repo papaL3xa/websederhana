@@ -3,19 +3,14 @@
 // Menyimpan peta antara nama Tab di Sheets dengan format data di Web App
 // =========================================================================
 var SCHEDULE_CONFIGS = [
-  { sheetName: "Jadwal Rabu", key: "petugas", headers: ["Tanggal", "Pemimpin Acara", "Renungan", "Doa Syafaat", "Diakon"] },
-  { sheetName: "Jadwal SS", key: "sekolahSabat", headers: ["Tanggal", "Pianist", "Pembawa Acara", "Ayat Inti & Doa Buka", "Berita Misi", "Pelayanan Perorangan"] },
-  { sheetName: "Jadwal Khotbah", key: "khotbah", headers: ["Tanggal", "Khotbah", "Pendamping 1", "Pendamping 2", "Cerita Anak-anak", "Song Leader", "Lagu Pujian"] },
-  { sheetName: "Jadwal Diakon", key: "diakon", headers: ["Tanggal", "Diakon 1", "Diakon 2", "Diakones 1", "Diakones 2"] },
-  { sheetName: "Jadwal Musik", key: "musik", headers: ["Tanggal", "Pianis", "Keyboardis", "Gitaris", "Bassist", "Saxophonist", "Violinist"] },
+  { sheetName: "Jadwal Rabu", key: "petugas", headers: ["Tanggal", "Pemimpin Acara", "Renungan", "Tempat", "Persembahan Kas"] },
+  { sheetName: "Jadwal SS", key: "sekolahSabat", headers: ["Tanggal", "Pianis", "Pembawa Acara", "Ayat Inti & Doa Buka", "Berita Misi", "Doa Tutup"] },
+  { sheetName: "Jadwal Khotbah", key: "khotbah", headers: ["Tanggal", "Khotbah", "Pastoral Prayer", "Presider", "Cerita Anak-anak", "Lagu Pujian"] },
+  { sheetName: "Jadwal Diakon", key: "diakon", headers: ["Tanggal", "Diakon"] },
+  { sheetName: "Jadwal Musik", key: "musik", headers: ["Tanggal", "Pianis"] },
   { sheetName: "Jadwal Perjamuan", key: "perjamuan", headers: [
     "Tanggal",
-    "P. Roti & Anggur 1", "P. Roti & Anggur 2", "P. Roti & Anggur 3", "P. Roti & Anggur 4", "P. Roti & Anggur 5",
-    "P. Basuh Kaki 1", "P. Basuh Kaki 2", "P. Basuh Kaki 3",
-    "Pelayan Basuh Kaki 1", "Pelayan Basuh Kaki 2", "Pelayan Basuh Kaki 3",
-    "Pelayan Perjamuan (L1)", "Pelayan Perjamuan (L2)", "Pelayan Perjamuan (P1)", "Pelayan Perjamuan (P2)",
-    "Cuci Baskom 1", "Cuci Baskom 2", "Cuci Baskom 3", "Cuci Baskom 4",
-    "Cuci Alat Perjamuan"
+    "Anggur", "Roti", "Lipat Kain1", "Lipat Kain2",
   ]}
 ];
 
@@ -24,7 +19,7 @@ var SCHEDULE_CONFIGS = [
 // =========================================================================
 function checkAndInitSheets() {
   // Mengarahkan database langsung ke ID Google Sheet spesifik milikmu
-  var ss = SpreadsheetApp.openById("1PKgBirWyy3HFtfmWJc1P2jkN5ZaxwMWraApductXMn0");
+  var ss = SpreadsheetApp.openById("1-dT9JhlAm41ZxQMzkdGBD3Mhv1Hzd0qDiRMV59zjdxw");
   
   // 1. Sheet Pengaturan
   var sPengaturan = ss.getSheetByName("Pengaturan");
@@ -32,7 +27,7 @@ function checkAndInitSheets() {
     sPengaturan = ss.insertSheet("Pengaturan");
     sPengaturan.appendRow(["Konfigurasi", "Nilai"]);
     sPengaturan.appendRow(["PASSWORD", "admin"]);
-    sPengaturan.appendRow(["YOUTUBE_URL", "https://www.youtube-nocookie.com/embed?listType=playlist&list=UUz6rQ_5zP0Y0c8V7aKx2jLQ"]);
+    sPengaturan.appendRow(["YOUTUBE_URL", "https://www.youtube.com/embed/EAO55pnNsgs"]);
     sPengaturan.getRange("A1:B1").setFontWeight("bold");
     sPengaturan.setColumnWidth(1, 150);
     sPengaturan.setColumnWidth(2, 400);
@@ -138,9 +133,9 @@ function doGet(e) {
       if (!jadwalDB[dateStr]) {
         var isRabu = new Date(dateStr + "T00:00:00").getDay() === 3;
         if (isRabu) {
-          jadwalDB[dateStr] = { title: "Ibadah Permintaan Doa (Rabu)", time: "19:00 WIB - selesai", petugas: [] };
+          jadwalDB[dateStr] = { title: "Ibadah Permintaan Doa (Rabu)", time: "19:30 WIB - selesai", petugas: [] };
         } else {
-          jadwalDB[dateStr] = { title: "Ibadah Sabat (Sabtu)", time: "09:00 - 12:00 WIB", sekolahSabatTime: "09:00 - 10:30 WIB", khotbahTime: "10:30 - 12:00 WIB", sekolahSabat: [], khotbah: [], diakon: [], musik: [], perjamuan: [] };
+          jadwalDB[dateStr] = { title: "Ibadah Sabat (Sabtu)", time: "10:00 - 13:00 WIB", sekolahSabatTime: "11:45 - 12:40 WIB", khotbahTime: "10:00 - 11:35 WIB", sekolahSabat: [], khotbah: [], diakon: [], musik: [], perjamuan: [] };
         }
       }
       
