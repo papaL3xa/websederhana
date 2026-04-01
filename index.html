@@ -104,7 +104,7 @@
     </style>
 </head>
 
-<body class="bg-gold-50 text-navy-900 font-sans antialiased">
+<body class="bg-navy-50 text-navy-900 font-sans antialiased">
     <div id="root"></div>
 
     <script type="text/babel">
@@ -131,34 +131,40 @@
 
         const initialJadwalRabu = {
             title: "Ibadah Permintaan Doa (Rabu)", time: "19:30 WIB - selesai",
-            petugas: [{ tugas: "Pemimpin Acara", nama: "Pemimpin" }, { tugas: "Renungan", nama: "Renungan" }, { tugas: "Tempat", nama: "Tempat" }, { tugas: "Persembahan Kas", nama: "Diakon" }]
+            petugas: [{ tugas: "Pemimpin Acara", nama: "Pemimpin" }, { tugas: "Renungan", nama: "Renungan" }, { tugas: "Tempat", nama: "Tempat" }, { tugas: "Persembahan Kas", nama: "Diakon" }, { tugas: "Lagu Pujian", nama: "Lagu Pujian" }]
         };
 
         const initialJadwalSabat = {
             title: "Ibadah Sabat (Sabtu)", time: "10:00 - 13:00 WIB",
-            khotbahTime: "10:00 - 11:45 WIB",
-            khotbah: [{ tugas: "Khotbah", nama: "Khotbah" }, { tugas: "Pastoral Prayer", nama: "Prayer" }, { tugas: "Presider", nama: "Presider" }, { tugas: "Cerita Anak-anak", nama: "Cerita" }, { tugas: "Lagu Pujian", nama: "Pujian" }],
-            diakon: [{ tugas: "Diakon", nama: "Diakon" }],
-            musik: [{ tugas: "Pianis", nama: "Pianis" }],
             sekolahSabatTime: "11:45 - 12:40 WIB",
-            sekolahSabat: [{ tugas: "Pianis", nama: "Pianis" }, { tugas: "Pembawa Acara", nama: "Pemimpin" }, { tugas: "Ayat Inti & Doa Buka", nama: "Ayat&Doa" }, { tugas: "Berita Misi", nama: "Video" }, { tugas: "Doa Tutup", nama: "DoaTutup" }],
+            sekolahSabat: [{ tugas: "Pianist", nama: "Sdri. Grace" }, { tugas: "Pembawa Acara", nama: "Bpk. Andi" }, { tugas: "Ayat Inti & Doa Buka", nama: "Bpk. Yohanes" }, { tugas: "Berita Misi", nama: "Ibu Lina" }, { tugas: "Doa Tutup", nama: "Doa Tutup" }],
+            khotbahTime: "10:00 - 11:45 WIB",
+            khotbah: [{ tugas: "Khotbah", nama: "Pdt. David Siregar" }, { tugas: "Doa Syafaat", nama: "Bpk. Daniel" }, { tugas: "Presider", nama: "Sdr. Kevin" }, { tugas: "Cerita Anak-anak", nama: "Ibu Sarah" }, { tugas: "Song Leader", nama: "Sdr. Joshua" }, { tugas: "Lagu Pujian", nama: "Koor Pemuda" }],
+            diakon: [{ tugas: "Diakon", nama: "Bpk. Sitorus" }],
+            musik: [{ tugas: "Pianis", nama: "Sdri. Grace" }],
             susunan: defaultSusunan,
-            perjamuan: [{ tugas: "Anggur", nama: "Diakon1" }, { tugas: "Roti", nama: "Diakon2" }, { tugas: "Lipat Kain1", nama: "Diakones1" }, { tugas: "Lipat Kain2", nama: "Diakones2" },]
+            perjamuan: [
+                { tugas: "P. Roti & Anggur 1", nama: "" }, { tugas: "P. Roti & Anggur 2", nama: "" }, { tugas: "P. Roti & Anggur 3", nama: "" }, { tugas: "P. Roti & Anggur 4", nama: "" }, { tugas: "P. Roti & Anggur 5", nama: "" },
+                { tugas: "P. Basuh Kaki 1", nama: "" }, { tugas: "P. Basuh Kaki 2", nama: "" }, { tugas: "P. Basuh Kaki 3", nama: "" },
+                { tugas: "Pelayan Basuh Kaki 1", nama: "" }, { tugas: "Pelayan Basuh Kaki 2", nama: "" }, { tugas: "Pelayan Basuh Kaki 3", nama: "" },
+                { tugas: "Pelayan Perjamuan (L1)", nama: "" }, { tugas: "Pelayan Perjamuan (P1)", nama: "" }, { tugas: "Pelayan Perjamuan (L2)", nama: "" }, { tugas: "Pelayan Perjamuan (P2)", nama: "" },
+                { tugas: "Cuci Baskom 1", nama: "" }, { tugas: "Cuci Baskom 2", nama: "" }, { tugas: "Cuci Baskom 3", nama: "" }, { tugas: "Cuci Baskom 4", nama: "" },
+                { tugas: "Cuci Alat Perjamuan", nama: "Diatur oleh Diakones" }
+            ]
         };
 
         const initialDataPejabat = [
-            { id: 'hotline', jabatan: "hotline", nama: "[No Hotline]", wa: "62800000000", img: "https://ui-avatars.com/api/?name=Hot+Line&background=eff6ff&color=1e3a8a&size=128", kategori: "Hotline" },
-            { id: 'gembala', jabatan: "Gembala Jemaat", nama: "[Nama Gembala]", wa: "62800000000", img: "https://ui-avatars.com/api/?name=Gembala+Jemaat&background=eff6ff&color=1e3a8a&size=128", kategori: "Kepemimpinan" },
-            { id: 'ketua', jabatan: "Ketua Jemaat", nama: "[Nama Ketua]", wa: "62800000000", img: "https://ui-avatars.com/api/?name=Ketua+1&background=eff6ff&color=1e3a8a&size=128", kategori: "Kepemimpinan" },
-            { id: 'sekertaris', jabatan: "Sekertaris", nama: "[Nama Sekertaris]", wa: "62800000000", img: "https://ui-avatars.com/api/?name=Sekertaris+2&background=eff6ff&color=1e3a8a&size=128", kategori: "Kepemimpinan" },
-            { id: 'bendahara', jabatan: "Bendahara", nama: "[Nama bendahara]", wa: "62800000000", img: "https://ui-avatars.com/api/?name=Bendahara+1&background=f0fdf4&color=14532d&size=128", kategori: "Kepemimpinan" },
-            { id: 'pembangunan', jabatan: "Pembangunan", nama: "[Nama Pembangunan]", wa: "62800000000", img: "https://ui-avatars.com/api/?name=Pembangunan+2&background=f0fdf4&color=14532d&size=128", kategori: "Kepemimpinan" },
-            { id: 'komunikasi', jabatan: "Komunikasi", nama: "[Nama Komunikasi]", wa: "62800000000", img: "https://ui-avatars.com/api/?name=Komunikasi&background=fffbeb&color=78350f&size=128", kategori: "Keuangan" },
-            { id: 'ss', jabatan: "Sekolah Sabat", nama: "[Nama Sekolah Sabat]", wa: "62800000000", img: "https://ui-avatars.com/api/?name=Sekolah+Sabat&background=fffbeb&color=78350f&size=128", kategori: "Keuangan" },
-            { id: 'rumah', jabatan: "Rumah Tangga", nama: "[Nama Rumah Tangga]", wa: "62800000000", img: "https://ui-avatars.com/api/?name=Rumah+Tangga&background=e0e7ff&color=3730a3&size=128", kategori: "Departemen & Pelayanan" },
-            { id: 'diakon', jabatan: "Ketua Diakon", nama: "[Nama Diakon]", wa: "62800000000", img: "https://ui-avatars.com/api/?name=Diakon&background=e0e7ff&color=3730a3&size=128", kategori: "Departemen & Pelayanan" },
-            { id: 'diakones', jabatan: "Ketua Diakones", nama: "[Nama Diakones]", wa: "62800000000", img: "https://ui-avatars.com/api/?name=Diakones+Diakones&background=f3f4f6&color=1f2937&size=128", kategori: "Departemen & Pelayanan" },
-            { id: 'pemuda', jabatan: "Ketua Pemuda", nama: "[Nama Ketua Pemuda]", wa: "62800000000", img: "https://ui-avatars.com/api/?name=Ketua+Pemuda&background=faf5ff&color=581c87&size=128", kategori: "Departemen & Pelayanan" }
+            { id: 'gembala', jabatan: "Gembala Jemaat", nama: "Pdt. [Nama Gembala]", wa: "62800000000", img: "https://ui-avatars.com/api/?name=Gembala+Jemaat&background=eff6ff&color=1e3a8a&size=128", kategori: "Gembala" },
+            { id: 'ketua', jabatan: "Ketua Jemaat", nama: "Bpk. [Nama Ketua]", wa: "62800000000", img: "https://ui-avatars.com/api/?name=Ketua+Jemaat&background=eff6ff&color=1e3a8a&size=128", kategori: "Officers" },
+            { id: 'sekertaris', jabatan: "Sekertaris", nama: "Bpk. [Nama Sekertaris]", wa: "62800000000", img: "https://ui-avatars.com/api/?name=Sekertaris&background=eff6ff&color=1e3a8a&size=128", kategori: "Officers" },
+            { id: 'bendahara', jabatan: "Bendahara", nama: "Ibu [Nama Bendahara]", wa: "62800000000", img: "https://ui-avatars.com/api/?name=Bendahara+Jemaat&background=f0fdf4&color=14532d&size=128", kategori: "Officers" },
+            { id: 'penginjilan', jabatan: "Penginjilan", nama: "Bpk. [Nama Penginjilan]", wa: "62800000000", img: "https://ui-avatars.com/api/?name=Penginjilan+2&background=f0fdf4&color=14532d&size=128", kategori: "Departemen & Pelayanann" },
+            { id: 'ss', jabatan: "Sekolah Sabat", nama: "Ibu. [Nama Sekolah Sabat]", wa: "62800000000", img: "https://ui-avatars.com/api/?name=Sekolah+Sabat&background=fffbeb&color=78350f&size=128", kategori: "Departemen & Pelayanan" },
+            { id: 'diakon', jabatan: "Ketua Diakon", nama: "Ibu. [Nama Ketua Diakon", wa: "62800000000", img: "https://ui-avatars.com/api/?name=Ketua+Diakon&background=fffbeb&color=78350f&size=128", kategori: "Departemen & Pelayanan" },
+            { id: 'rumah', jabatan: "Rumah Tangga", nama: "Sdr. [Nama Rumah Tangga]", wa: "62800000000", img: "https://ui-avatars.com/api/?name=Rumah+Tangga&background=e0e7ff&color=3730a3&size=128", kategori: "Departemen & Pelayanan" },
+            { id: 'pemuda', jabatan: "Pemuda", nama: "Sdr. [Nama Pemuda]", wa: "62800000000", img: "https://ui-avatars.com/api/?name=Pemuda&background=e0e7ff&color=3730a3&size=128", kategori: "Departemen & Pelayanan" },
+            { id: 'hotline', jabatan: "Hotline", nama: "Bpk. [Nama Hotline]", wa: "62800000000", img: "https://ui-avatars.com/api/?name=Hotline&background=f3f4f6&color=1f2937&size=128", kategori: "Lainnya" },
+            { id: 'komunikasi', jabatan: "komunikasi", nama: "Sdr. [Nama Komunikasi]", wa: "62800000000", img: "https://ui-avatars.com/api/?name=Kominikasi&background=faf5ff&color=581c87&size=128", kategori: "Lainnya" }
         ];
 
         // --- ICONS (SVG MAPPING) ---
@@ -278,13 +284,13 @@
                         <h3 className="font-bold text-[1.15rem] text-navy-900">SDA Tithing System</h3>
                     </div>
                     <div className="w-full flex justify-center">
-                        <iframe data-testid="embed-iframe" style={{ borderRadius: '1rem' }} src="https://www.youtube.com/embed/EAO55pnNsgs" width="100%" height="152" frameBorder="0" allowFullScreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                        <iframe data-testid="embed-iframe" style={{ borderRadius: '1rem' }} src="https://www.youtube.com/embed/EAO55pnNsgs" width="100%" height="300" frameBorder="0" allowFullScreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                     </div>
                 </div>
 
                 <footer className="mt-8 pt-6 pb-2 border-t border-navy-200 text-center text-navy-500 font-medium tracking-wide text-[10px] md:text-xs">
-                   <p>Copyright &copy; by PISGAH-BISDAC Team 2026</p>
-                    <p>Thanks to by ART1S Tech Team for code</p>
+                    <p>Copyright &copy; by PISGAH BISDAC Team 2026</p>
+                    <p>Thanks to ART1SAN tech Team for Code</p>
                     <p>GOD BLESS US</p>
                 </footer>
             </div>
@@ -340,14 +346,16 @@
                             {/* TAB CONTENT */}
                             {openSection === 'ss' && (
                                 <div className="p-4 md:p-6 animate-fade-in bg-white">
+                                    {renderItem("Lagu Pengantar", "LS 205")}
                                     {renderItem("Pemimpin Acara", getOfficer(activeSabat.sekolahSabat, "Pembawa Acara"))}
                                     {renderItem("Lagu Buka", susunan.ssLaguBuka)}
                                     {renderItem("Ayat Inti & Doa Buka", getOfficer(activeSabat.sekolahSabat, "Ayat Inti & Doa Buka"))}
                                     {renderItem("Berita Misi", getOfficer(activeSabat.sekolahSabat, "Berita Misi"))}
-                                    {renderItem("Diskusi Sekolah Sabat", "Kelas Dewasa, Kelas Pendalaman Alkitab, Kelas Remaja, Kelas Anak-anak")}
+                                    {renderItem("Diskusi Sekolah Sabat", "Kelas Dewasa, Kelas Pendalaman Alkitab, Kelas Anak-anak")}
+                                    {renderItem("Doa Tutup", getOfficer(activeSabat.sekolahSabat, "Doa Tutup"))}
                                     {renderItem("Lagu Tutup", susunan.ssLaguTutup)}
-                                    {renderItem("Doa Tutup", getOfficer(activeSabat.sekolahSabat, "Pembawa Acara"))}
-                                </div> 
+                                    {renderItem("Doa Tutup", getOfficer(activeSabat.sekolahSabat, "Doa Tutup"))}
+                                </div>
                             )}
 
                             {openSection === 'khotbah' && (
@@ -357,7 +365,7 @@
                                     {renderItem("Doa Buka", getOfficer(activeSabat.khotbah, "Khotbah"))}
                                     {renderItem("Ayat Bersahutan", susunan.kAyatBersahutan)}
                                     {renderItem("Lagu Buka", susunan.kLaguBuka)}
-                                    {renderItem("Doa Syafaat", getOfficer(activeSabat.khotbah, "Pastoral Prayer"))}
+                                    {renderItem("Doa Syafaat", getOfficer(activeSabat.khotbah, "Doa Syafaat"))}
                                     {susunan.kLaguPujian1_show && renderItem("Lagu Pujian", susunan.kLaguPujian1_judul, true)}
                                     {renderItem("Bacaan Persembahan", getOfficer(activeSabat.khotbah, "Presider"))}
                                     {renderItem("Lagu Persembahan", "LS 260 - Bawa Persembahanmu")}
@@ -369,6 +377,8 @@
                                     {renderItem("Lagu Tema", "Misi Kita")}
                                     {renderItem("Khotbah", getOfficer(activeSabat.khotbah, "Khotbah"), true)}
                                     {renderItem("Lagu Tutup", susunan.kLaguTutup)}
+                                    {renderItem("Doa Berkat", "Pdt. David Indra Utomo")}
+                                    {renderItem("Lagu Berkat", "LS 60 - Pada Akhir Kebaktian")}
                                     {renderItem("Pengumuman", "Dept. Komunikasi")}
                                 </div>
                             )}
@@ -381,7 +391,6 @@
 
                             {openSection === 'musik' && (
                                 <div className="p-4 md:p-6 animate-fade-in bg-white">
-                                    {activeSabat.musik.map((p, idx) => <div key={idx}>{renderItem(p.tugas, p.nama)}</div>)}
                                     {activeSabat.musik.map((p, idx) => <div key={idx}>{renderItem(p.tugas, p.nama)}</div>)}
                                 </div>
                             )}
@@ -539,7 +548,7 @@
                 <h3 className="font-bold text-purple-800 text-sm mb-0 bg-purple-50 p-2.5 border-b border-purple-100 text-center uppercase tracking-wider">{title}</h3>
                 <div className="flex flex-col">
                     {items.map((p, i) => (
-                        <div key={i} className="flex justify-between items-center px-3 py-0.5 border-b border-purple-50 last:border-0 hover:bg-purple-50/50 transition">
+                        <div key={i} className="flex justify-between items-center px-3 py-2 border-b border-purple-50 last:border-0 hover:bg-purple-50/50 transition">
                             <span className="text-xs text-purple-600 font-semibold w-1/2">{p.tugas}</span>
                             <span className="text-sm font-bold text-gray-800 text-right w-1/2">{p.nama}</span>
                         </div>
@@ -554,10 +563,10 @@
                 <div className="bg-white p-5 md:p-6 rounded-[1.25rem] shadow-sm border border-navy-100/60 flex flex-col sm:flex-row items-center justify-between gap-4">
                     <div>
                         <h3 className="font-bold text-navy-900 text-[1.15rem]">Jadwal Lengkap</h3>
-                        <p className="text-sm text-navy-500 mt-1">Lihat dan unduh file PDF jadwal pelayanan bulanan / triwulan di Google Drive.</p>
+                        <p className="text-sm text-navy-500 mt-1">Lihat dan unduh file PDF jadwal pelayanan bulanan / triwulan</p>
                     </div>
-                    <a href="https://docs.google.com/spreadsheets/d/1VOmcMRbhUQ4kyHypYOsYCmLF660qHwaQxnE1cLcBNOc/edit?usp=drivesdk" target="_blank" rel="noopener noreferrer" className="bg-navy-900 hover:bg-navy-800 text-gold-400 px-6 py-3 rounded-xl text-sm font-bold shadow-md hover:shadow-lg transition flex items-center shrink-0 w-full sm:w-auto justify-center">
-                        <Icon name="BookOpen" className="w-[1.15rem] h-[1.15rem] mr-2 text-gold-500" /> Buka Google Drive
+                    <a href="./TW2-2026.pdf" target="_blank" rel="noopener noreferrer" className="bg-navy-900 hover:bg-navy-800 text-gold-400 px-6 py-3 rounded-xl text-sm font-bold shadow-md hover:shadow-lg transition flex items-center shrink-0 w-full sm:w-auto justify-center">
+                        <Icon name="BookOpen" className="w-[1.15rem] h-[1.15rem] mr-2 text-gold-500" /> Download
                     </a>
                 </div>
 
@@ -572,20 +581,24 @@
                                 <p className="text-sm font-bold text-gold-600 mt-0.5">{formatIndoDate(perjamuanYMD)}</p>
                             </div>
                         </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-1">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            {renderPerjamuanGroup("Persiapan Roti & Anggur", activePerjamuan.slice(0, 5))}
+                            {renderPerjamuanGroup("Persiapan & Basuh Kaki", activePerjamuan.slice(5, 11))}
                             {renderPerjamuanGroup("Pelayan Perjamuan", activePerjamuan.slice(11, 15))}
+                            {renderPerjamuanGroup("Pembersihan Alat", activePerjamuan.slice(15, 20))}
                         </div>
                     </div>
                 )}
 
                 {/* Rabu */}
-                <div className="bg-white p-5 md:p-7 rounded-[1.5rem] shadow-sm border border-navy-100/60 relative overflow-hidden group">
+                {/* pada bagian Jadwal */}
+                <div className="bg-white p-5 md:p-7 rounded-[1.5rem] shadow-sm border-t-[6px] border-navy-800 border-x border-b border-navy-100/60 relative">
                     <div className="flex flex-col md:flex-row md:items-center justify-between mb-5 border-b pb-4 border-navy-50">
                         <div className="flex items-center space-x-3">
                             <Icon name="Calendar" className="w-[1.4rem] h-[1.4rem] text-gold-500" />
                             <div><h2 className="text-lg font-bold text-navy-900 tracking-tight">{activeRabu.title}</h2><p className="text-sm font-semibold text-navy-400 mt-0.5">{formatIndoDate(rabuYMD)}</p></div>
                         </div>
-                        <span className="text-xs font-bold text-navy-800 bg-gold-50 px-4 py-1.5 rounded-full mt-3 md:mt-0 w-fit border border-gold-200 uppercase tracking-widest shadow-sm">{activeRabu.time}</span>
+                        <span className="text-xs font-bold text-navy-800 bg-gold-50 px-4 py-1.5 rounded-full mt-3 md:mt-0 w-fit border border-gold-200 uppercase tracking-widest shadow-sm">Waktu: {activeRabu.time}</span>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-1">
                         {activeRabu.petugas.map((p, idx) => (
@@ -653,7 +666,7 @@
                             <iframe className="absolute top-0 left-0 w-full h-full" src={youtubeUrl} title="YouTube Live Stream" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                         </div>
                         <div className="pt-4 pb-2 px-2 text-white flex justify-center w-full">
-                            <div className="font-bold text-sm tracking-widest flex items-center bg-gold-400/20 px-5 py-2.5 rounded-full border border-gold-400/30 text-gold-400 uppercase"><span className="w-2.5 h-2.5 rounded-full bg-red-600 animate-pulse mr-2.5"></span> Live PISGAH-BISDAC</div>
+                            <div className="font-bold text-sm tracking-widest flex items-center bg-gold-400/20 px-5 py-2.5 rounded-full border border-gold-400/30 text-gold-400 uppercase"><span className="w-2.5 h-2.5 rounded-full bg-red-600 animate-pulse mr-2.5"></span> Live </div>
                         </div>
                     </div>
 
@@ -720,17 +733,17 @@
                         <div className="flex items-center space-x-3 mb-6 border-b border-navy-50 pb-4"><Icon name="Gift" className="w-[1.4rem] h-[1.4rem] text-gold-500" /><h2 className="text-xl font-bold text-navy-900 tracking-tight">Persembahan, Perpuluhan, Ucapan Syukur, dan Donasi</h2></div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 items-stretch mb-8">
                             <div className="flex flex-col items-center p-6 bg-navy-50/50 rounded-2xl border border-navy-100/50 h-full justify-center shadow-sm">
-                                <div className="w-40 md:w-48 bg-white border border-navy-100 p-2.5 rounded-xl shadow-sm mb-4"><img src={qrisUrl} alt="QRIS PISGAH-BISDAC" className="w-full h-auto object-contain rounded-lg" crossOrigin="anonymous" /></div>
-                                <a href={qrisUrl} target="_blank" rel="noopener noreferrer" download="QRIS_GMAHK_PISGAH.jpg" className="bg-navy-900 hover:bg-navy-800 text-gold-400 px-5 py-2.5 rounded-xl text-xs font-bold transition flex items-center space-x-2 shadow"><Icon name="Download" className="w-3.5 h-3.5" /><span>QRIS BELUM TERSEDIA</span></a>
+                                <div className="w-40 md:w-48 bg-white border border-navy-100 p-2.5 rounded-xl shadow-sm mb-4"><img src={qrisUrl} alt="QRIS GMAHK PISGAH BISDAC" className="w-full h-auto object-contain rounded-lg" crossOrigin="anonymous" /></div>
+                                <a href={qrisUrl} target="_blank" rel="noopener noreferrer" download="QRIS_GMAHK_PISGAH.jpg" className="bg-navy-900 hover:bg-navy-800 text-gold-400 px-5 py-2.5 rounded-xl text-xs font-bold transition flex items-center space-x-2 shadow"><Icon name="Download" className="w-3.5 h-3.5" /><span>Download QRIS</span></a>
                             </div>
                             <div className="flex flex-col justify-center text-center p-6 bg-gradient-to-br from-navy-800 to-navy-900 border border-gold-300 rounded-2xl h-full shadow-sm text-gold-400">
-                                <p className="text-xs md:text-sm font-bold mb-1 tracking-wide uppercase">Atau Transfer Bank ke:</p><p className="font-extrabold text-2xl md:text-3xl tracking-widest my-2 font-mono">1090001711043</p><p className="text-xs md:text-sm font-bold opacity-90">MANDIRI A/N GMAHK PISGAH BISDAC</p>
+                                <p className="text-xs md:text-sm font-bold mb-1 tracking-wide uppercase">Atau Transfer Bank ke:</p><p className="font-extrabold text-2xl md:text-3xl tracking-widest my-2 font-mono">1090001911034</p><p className="text-xs md:text-sm font-bold opacity-90">MANDIRI a/n GMAHK PISGAH BISDAC</p>
                             </div>
                         </div>
                         <div className="bg-navy-50/30 p-5 md:p-6 rounded-2xl border border-navy-100/50 space-y-6 shadow-sm">
                             <div>
                                 <h3 className="font-bold text-navy-900 text-sm mb-1.5 flex items-center"><span className="bg-gold-400/20 text-gold-600 w-5 h-5 rounded-full inline-flex items-center justify-center text-xs mr-2 border border-gold-400/30 font-bold">1</span>Hubungi Bendahara</h3>
-                                <p className="text-xs text-navy-600 mb-3 pl-7 font-medium">Kirim bukti transfer ke Bendahara kami:</p>
+                                <p className="text-xs text-navy-600 mb-3 pl-7 font-medium">Kirim bukti transfer ke salah satu Bendahara kami:</p>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pl-0 md:pl-7">
                                     {bendaharas.map((p, idx) => (
                                         <a key={idx} href={`https://wa.me/${p.wa}`} target="_blank" rel="noopener noreferrer" className="flex items-center p-2.5 rounded-xl border border-navy-100 bg-white hover:bg-gold-50 hover:border-gold-200 transition group shadow-sm"><img src={p.img} alt={p.nama} className="w-10 h-10 rounded-full object-cover mr-3 border-2 border-transparent group-hover:border-gold-400 transition" /><div><p className="text-[9px] font-bold text-navy-500 group-hover:text-gold-600 transition-colors uppercase tracking-widest">{p.jabatan}</p><p className="font-bold text-navy-900 text-sm">{p.nama}</p></div></a>
@@ -742,6 +755,13 @@
                                 <p className="text-xs text-navy-600 mb-4 pl-7 font-medium">Sebutkan rincian nominal persembahan Anda pada chat WhatsApp:</p>
                                 <div className="flex flex-wrap gap-2 pl-0 md:pl-7">
                                     {['Perpuluhan', 'Persembahan Terpadu', 'Persembahan Khusus', 'Persembahan Syukur', 'Donasi Kas Gereja', 'Donasi Kas Departemen', 'Lain-lain'].map((item, i) => { const colors = ['bg-gold-500', 'bg-navy-500', 'bg-red-500', 'bg-green-500', 'bg-purple-500', 'bg-teal-500', 'bg-gray-500']; return (<span key={i} className="flex items-center bg-white border border-navy-100 px-3 py-1.5 rounded-full text-[10px] md:text-xs font-bold text-navy-700 shadow-sm"><span className={`w-1.5 h-1.5 rounded-full ${colors[i]} mr-2`}></span>{item}</span>); })}
+                                </div>
+                            </div>
+                            <div>
+                                <h3 className="font-bold text-navy-900 text-sm mb-1.5 flex items-center"><span className="bg-blue-400/20 text-blue-600 w-5 h-5 rounded-full inline-flex items-center justify-center text-xs mr-2 font-bold">3</span>Ada 2 waktu pengumpulan persembahan</h3>
+                                <p className="text-xs text-navy-600 mb-4 pl-7 font-medium">1. Pada Saat Jam Khotbah (Persembahan)</p>
+                                <p className="text-xs text-navy-600 mb-4 pl-7 font-medium">2. Pada Saat Lagu Tutup Jam Khotbah (Pembangunan)</p>
+                                <div className="flex flex-wrap gap-2 pl-0 md:pl-7">
                                 </div>
                             </div>
                         </div>
@@ -758,7 +778,7 @@
                     <p className="text-sm font-medium text-navy-600 mb-6">Pilih jenis permohonan keanggotaan yang sesuai dengan status Anda saat ini.</p>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch">
                         <button onClick={() => setActiveTab('member_baru')} className="w-full text-left p-5 rounded-[1.25rem] border border-navy-100/50 bg-navy-50/30 hover:bg-navy-50 transition-colors flex items-center justify-between h-full group shadow-sm"><div><h3 className="font-bold text-navy-900 group-hover:text-gold-600 transition-colors">Member Baru</h3><p className="text-xs font-medium text-navy-500 mt-1.5 leading-relaxed">Untuk yang belum pernah menjadi anggota GMAHK (Non-Adventist).</p></div><span className="text-gold-500 font-black text-xl ml-4 transform group-hover:translate-x-1 transition-transform">&rarr;</span></button>
-                        <button onClick={() => setActiveTab('pindah_masuk')} className="w-full text-left p-5 rounded-[1.25rem] border border-navy-100/50 bg-navy-50/30 hover:bg-navy-50 transition-colors flex items-center justify-between h-full group shadow-sm"><div><h3 className="font-bold text-navy-900 group-hover:text-gold-600 transition-colors">Pindah Masuk - ACMS</h3><p className="text-xs font-medium text-navy-500 mt-1.5 leading-relaxed">Untuk anggota GMAHK yang ingin pindah ke JEMAAT PISGAH_BISDAC</p></div><span className="text-gold-500 font-black text-xl ml-4 transform group-hover:translate-x-1 transition-transform">&rarr;</span></button>
+                        <button onClick={() => setActiveTab('pindah_masuk')} className="w-full text-left p-5 rounded-[1.25rem] border border-navy-100/50 bg-navy-50/30 hover:bg-navy-50 transition-colors flex items-center justify-between h-full group shadow-sm"><div><h3 className="font-bold text-navy-900 group-hover:text-gold-600 transition-colors">Pindah Masuk - ACMS</h3><p className="text-xs font-medium text-navy-500 mt-1.5 leading-relaxed">Untuk anggota GMAHK yang ingin pindah ke Jemaat PISGAH-BATAM.</p></div><span className="text-gold-500 font-black text-xl ml-4 transform group-hover:translate-x-1 transition-transform">&rarr;</span></button>
                     </div>
                 </div>
                 <div className="bg-white p-6 md:p-8 rounded-[1.5rem] shadow-sm border border-navy-100/60 pb-safe">
@@ -871,7 +891,7 @@
 
             if (step === 'success') {
                 return (
-                    <div className="bg-white p-8 md:p-10 rounded-[1.5rem] shadow-sm border border-navy-100/60 text-center animate-fade-in relative z-10"><div className="w-20 h-20 bg-green-50 text-green-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm"><Icon name="Check" className="w-10 h-10" /></div><h2 className="text-[1.8rem] font-black text-navy-900 mb-3 tracking-tight">Dokumen Berhasil Dibuat!</h2><p className="text-navy-600 mb-8 font-medium">File PDF permohonan Anda telah berhasil <b>diunduh</b> ke perangkat Anda.</p><div className="bg-navy-50/50 p-6 rounded-2xl text-left border border-navy-100 mb-8 shadow-inner"><h3 className="font-bold text-navy-900 mb-2 flex items-center"><Icon name="Info" className="w-5 h-5 mr-2 text-gold-500" /> Langkah Selanjutnya</h3><p className="text-sm text-navy-600 mb-4 leading-relaxed">Aplikasi email standar/bawaan Anda (seperti Gmail atau Mail) akan terbuka secara otomatis.</p><ol className="list-decimal list-outside ml-4 space-y-2 text-sm text-navy-700 font-medium"><li>Temukan file PDF yang baru saja terunduh (biasanya di folder Downloads).</li><li><b>"Attach / Lampirkan"</b> file tersebut ke dalam badan email yang terbuka.</li><li>Klik tombol <b>Kirim</b> untuk mengirimkannya ke Sekretaris Jemaat PISGAH-BISDAC</li></ol></div><button onClick={() => setActiveTab('pindah_masuk')} className="bg-navy-900 hover:bg-navy-800 text-gold-400 px-8 py-3.5 rounded-xl font-bold transition shadow hover:shadow-md">Selesai & Kembali</button></div>
+                    <div className="bg-white p-8 md:p-10 rounded-[1.5rem] shadow-sm border border-navy-100/60 text-center animate-fade-in relative z-10"><div className="w-20 h-20 bg-green-50 text-green-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm"><Icon name="Check" className="w-10 h-10" /></div><h2 className="text-[1.8rem] font-black text-navy-900 mb-3 tracking-tight">Dokumen Berhasil Dibuat!</h2><p className="text-navy-600 mb-8 font-medium">File PDF permohonan Anda telah berhasil <b>diunduh</b> ke perangkat Anda.</p><div className="bg-navy-50/50 p-6 rounded-2xl text-left border border-navy-100 mb-8 shadow-inner"><h3 className="font-bold text-navy-900 mb-2 flex items-center"><Icon name="Info" className="w-5 h-5 mr-2 text-gold-500" /> Langkah Selanjutnya</h3><p className="text-sm text-navy-600 mb-4 leading-relaxed">Aplikasi email standar/bawaan Anda (seperti Gmail atau Mail) akan terbuka secara otomatis.</p><ol className="list-decimal list-outside ml-4 space-y-2 text-sm text-navy-700 font-medium"><li>Temukan file PDF yang baru saja terunduh (biasanya di folder Downloads).</li><li><b>"Attach / Lampirkan"</b> file tersebut ke dalam badan email yang terbuka.</li><li>Klik tombol <b>Kirim</b> untuk mengirimkannya ke Sekretaris Jemaat PISGAH BISDAC.</li></ol></div><button onClick={() => setActiveTab('pindah_masuk')} className="bg-navy-900 hover:bg-navy-800 text-gold-400 px-8 py-3.5 rounded-xl font-bold transition shadow hover:shadow-md">Selesai & Kembali</button></div>
                 );
             }
 
@@ -890,7 +910,7 @@
                         <div className="bg-navy-100/50 shadow-inner overflow-x-auto border border-navy-200 rounded-[1.5rem] p-4 sm:p-8 relative">
                             <div className="absolute top-4 right-4 text-xs font-bold text-navy-400 uppercase tracking-widest bg-white/50 px-3 py-1 rounded-full backdrop-blur-sm z-10 pointer-events-none">Preview Saja</div>
                             <div className="w-max mx-auto shadow-xl bg-white relative rounded overflow-hidden">
-                                <div id="pdf-content" className="p-10 bg-white text-black text-sm relative" style={{ width: '210mm', minHeight: '297mm', fontFamily: '"Open Sans", sans-serif', boxSizing: 'border-box' }}><p className="text-[10px] text-gray-500 absolute top-4 right-10 leading-none">Form ACMS-03</p><div className="flex justify-between items-center mb-10 mt-6"><div className="w-[180px] flex justify-start"><img src="https://i.postimg.cc/dQhq2HGf/png-acms-new-logo.png" alt="ACMS Logo" crossOrigin="anonymous" className="h-[60px] object-contain block" /></div><div className="flex-1 text-center px-4"><h2 className="font-bold text-[16px] leading-tight">PERMOHONAN PERPINDAHAN ANGGOTA</h2><h2 className="font-bold text-[16px] leading-tight mt-1">GMAHK KONFERENS JAWA KAWASAN TIMUR</h2><h2 className="font-bold text-[16px] leading-tight mt-1">JEMAAT PISGAH-BISDAC</h2></div><div className="w-[180px] flex flex-col items-center"><div className="border border-black bg-[#dce6f1] font-bold py-1 w-full text-center text-[12px]">DIISI OLEH PEMOHON</div><p className="italic text-center mt-1 text-[12px] leading-snug">Bagi Pemohon yang namanya <br /><span className="font-bold not-italic">SUDAH</span> ada di ACMS</p></div></div><div className="mb-6"><p className="font-bold mb-2">A. PROFIL PEMOHON <span className="font-normal text-[11px]">(Mohon diisi sesuai dengan KTP/Akte Kelahiran / identitas lainnya menggunakan huruf besar)</span></p><table className="w-full ml-4" style={{ borderCollapse: 'separate', borderSpacing: '0 4px' }}><tbody><tr><td className="w-1/4 py-1 align-top">1. Nama Lengkap</td><td className="w-3/4 py-1 align-top">: <span className="uppercase">{formData.namaLengkap}</span></td></tr><tr><td className="w-1/4 py-1 align-top">2. Jenis Kelamin</td><td className="w-3/4 py-1 align-top">: {formData.jenisKelamin}</td></tr><tr><td className="w-1/4 py-1 align-top">3. Tanggal Lahir</td><td className="w-3/4 py-1 align-top">: {formatDate(formData.tanggalLahir)}</td></tr><tr><td className="w-1/4 py-1 align-top">4. Nama Ibu</td><td className="w-3/4 py-1 align-top">: <span className="uppercase">{formData.namaIbu}</span></td></tr><tr><td className="w-1/4 py-1 align-top">5. Baptisan</td><td className="w-3/4 py-1"></td></tr><tr><td className="w-1/4 py-1 pl-4 align-top">- tanggal</td><td className="w-3/4 py-1 align-top">: {formatDate(formData.baptisanTanggal)}</td></tr><tr><td className="w-1/4 py-1 pl-4 align-top">- tempat</td><td className="w-3/4 py-1 align-top">: <span className="uppercase">{formData.baptisanTempat}</span></td></tr><tr><td className="w-1/4 py-1 pl-4 align-top">- pendeta</td><td className="w-3/4 py-1 align-top">: <span className="uppercase">{formData.baptisanPendeta}</span></td></tr></tbody></table></div><div className="mb-8"><p className="font-bold mb-2">B. PERNYATAAN PEMOHON</p><table className="w-full ml-4 mb-4" style={{ borderCollapse: 'separate', borderSpacing: '0 4px' }}><tbody><tr><td className="w-[80%] py-1 align-top">1. Apakah Anda dalam masa disiplin Gereja?</td><td className="w-[20%] py-1 font-bold align-top">: {formData.masaDisiplin}</td></tr><tr><td className="w-[80%] py-1 align-top">2. Apakah Anda sudah pernah mengajukan permohonan perpindahan keanggotaan?</td><td className="w-[20%] py-1 font-bold align-top">: {formData.pernahPindah}</td></tr></tbody></table><p className="mb-2">Dengan ini saya memohon agar memindahkan keanggotaan saya dari:</p><table className="w-full ml-4 mb-4" style={{ borderCollapse: 'separate', borderSpacing: '0 4px' }}><tbody><tr><td className="w-1/4 py-1 align-top">1. Nama Jemaat Asal</td><td className="w-3/4 py-1 align-top">: <span className="uppercase">{formData.jemaatAsalNama}</span></td></tr><tr><td className="w-1/4 py-1 align-top">2. Alamat Jemaat Asal</td><td className="w-3/4 py-1 align-top">: {formData.jemaatAsalAlamat}</td></tr><tr><td className="w-1/4 py-1 align-top">3. Nama Sekretaris</td><td className="w-3/4 py-1 align-top">: <span className="uppercase">{formData.jemaatAsalSekretaris}</span></td></tr><tr><td className="w-1/4 py-1 align-top">4. Telp/Email Aktif</td><td className="w-3/4 py-1 align-top">: {formData.jemaatAsalKontak}</td></tr></tbody></table><p className="mb-6">Demikian permohonan ini saya ajukan tanpa ada paksaan dari pihak manapun.</p><div className="flex justify-end pr-10"><div className="text-center w-64"><p>Tempat/Tanggal diajukan:</p><p className="mb-14">Surabaya, {formatDate(new Date())}</p><p className="border-t border-black pt-1 uppercase leading-none">( {formData.namaLengkap || '..........................'} )</p><p className="text-[11px] mt-1">Nama dan Tanda Tangan Pemohon</p></div></div></div><div className="mb-6 mt-10 pt-6 border-t-[1.5px] border-dashed border-gray-400"><p className="font-bold text-center mb-5 tracking-wide text-[13px]">DIISI OLEH SEKRETARIS JEMAAT</p><p className="font-bold mb-2 text-[13px]">C. DATA KEPUTUSAN MAJELIS</p><table className="w-full ml-4" style={{ borderCollapse: 'separate', borderSpacing: '0 6px' }}><tbody><tr><td className="w-[40%] py-1.5 align-bottom">1. Keputusan Majelis Tanggal</td><td className="w-[60%] py-1.5 border-b border-dotted border-gray-500 align-bottom">: </td></tr><tr><td className="w-[40%] py-1.5 align-bottom"> Nomor Keputusan</td><td className="w-[60%] py-1.5 border-b border-dotted border-gray-500 align-bottom">: </td></tr><tr><td className="w-[40%] py-1.5 align-bottom">2. Di proses tanggal</td><td className="w-[60%] py-1.5 border-b border-dotted border-gray-500 align-bottom">: </td></tr><tr><td className="w-[40%] py-1.5 align-bottom">3. Ketua Jemaat</td><td className="w-[60%] py-1.5 border-b border-dotted border-gray-500 align-bottom">: </td></tr><tr><td className="w-[40%] py-1.5 align-bottom">4. Gembala Jemaat</td><td className="w-[60%] py-1.5 border-b border-dotted border-gray-500 align-bottom">: </td></tr></tbody></table><div className="flex justify-end pr-10 mt-8"><div className="text-center w-64"><p className="mb-14">20........</p><p className="border-t border-black pt-1 leading-none">( ........................................ )</p><p className="text-[11px] mt-1">Nama dan Tanda Tangan Sekretaris Jemaat</p></div></div></div><div className="mt-8 pt-4 border-t border-gray-200 flex justify-between items-center text-[10px] text-gray-400 font-sans"><p>ACMS v.3.03</p><p>&copy; Copyright by PISGAH-BISDAC Team 2026</p></div></div>
+                                <div id="pdf-content" className="p-10 bg-white text-black text-sm relative" style={{ width: '210mm', minHeight: '297mm', fontFamily: '"Open Sans", sans-serif', boxSizing: 'border-box' }}><p className="text-[10px] text-gray-500 absolute top-4 right-10 leading-none">Form ACMS-03</p><div className="flex justify-between items-center mb-10 mt-6"><div className="w-[180px] flex justify-start"><img src="https://i.postimg.cc/dQhq2HGf/png-acms-new-logo.png" alt="ACMS Logo" crossOrigin="anonymous" className="h-[60px] object-contain block" /></div><div className="flex-1 text-center px-4"><h2 className="font-bold text-[16px] leading-tight">PERMOHONAN PERPINDAHAN ANGGOTA</h2><h2 className="font-bold text-[16px] leading-tight mt-1">GMAHK KONFERENS JAWA KAWASAN TIMUR</h2><h2 className="font-bold text-[16px] leading-tight mt-1">JEMAAT PISGAH BISDAC</h2></div><div className="w-[180px] flex flex-col items-center"><div className="border border-black bg-[#dce6f1] font-bold py-1 w-full text-center text-[12px]">DIISI OLEH PEMOHON</div><p className="italic text-center mt-1 text-[12px] leading-snug">Bagi Pemohon yang namanya <br /><span className="font-bold not-italic">SUDAH</span> ada di ACMS</p></div></div><div className="mb-6"><p className="font-bold mb-2">A. PROFIL PEMOHON <span className="font-normal text-[11px]">(Mohon diisi sesuai dengan KTP/Akte Kelahiran / identitas lainnya menggunakan huruf besar)</span></p><table className="w-full ml-4" style={{ borderCollapse: 'separate', borderSpacing: '0 4px' }}><tbody><tr><td className="w-1/4 py-1 align-top">1. Nama Lengkap</td><td className="w-3/4 py-1 align-top">: <span className="uppercase">{formData.namaLengkap}</span></td></tr><tr><td className="w-1/4 py-1 align-top">2. Jenis Kelamin</td><td className="w-3/4 py-1 align-top">: {formData.jenisKelamin}</td></tr><tr><td className="w-1/4 py-1 align-top">3. Tanggal Lahir</td><td className="w-3/4 py-1 align-top">: {formatDate(formData.tanggalLahir)}</td></tr><tr><td className="w-1/4 py-1 align-top">4. Nama Ibu</td><td className="w-3/4 py-1 align-top">: <span className="uppercase">{formData.namaIbu}</span></td></tr><tr><td className="w-1/4 py-1 align-top">5. Baptisan</td><td className="w-3/4 py-1"></td></tr><tr><td className="w-1/4 py-1 pl-4 align-top">- tanggal</td><td className="w-3/4 py-1 align-top">: {formatDate(formData.baptisanTanggal)}</td></tr><tr><td className="w-1/4 py-1 pl-4 align-top">- tempat</td><td className="w-3/4 py-1 align-top">: <span className="uppercase">{formData.baptisanTempat}</span></td></tr><tr><td className="w-1/4 py-1 pl-4 align-top">- pendeta</td><td className="w-3/4 py-1 align-top">: <span className="uppercase">{formData.baptisanPendeta}</span></td></tr></tbody></table></div><div className="mb-8"><p className="font-bold mb-2">B. PERNYATAAN PEMOHON</p><table className="w-full ml-4 mb-4" style={{ borderCollapse: 'separate', borderSpacing: '0 4px' }}><tbody><tr><td className="w-[80%] py-1 align-top">1. Apakah Anda dalam masa disiplin Gereja?</td><td className="w-[20%] py-1 font-bold align-top">: {formData.masaDisiplin}</td></tr><tr><td className="w-[80%] py-1 align-top">2. Apakah Anda sudah pernah mengajukan permohonan perpindahan keanggotaan?</td><td className="w-[20%] py-1 font-bold align-top">: {formData.pernahPindah}</td></tr></tbody></table><p className="mb-2">Dengan ini saya memohon agar memindahkan keanggotaan saya dari:</p><table className="w-full ml-4 mb-4" style={{ borderCollapse: 'separate', borderSpacing: '0 4px' }}><tbody><tr><td className="w-1/4 py-1 align-top">1. Nama Jemaat Asal</td><td className="w-3/4 py-1 align-top">: <span className="uppercase">{formData.jemaatAsalNama}</span></td></tr><tr><td className="w-1/4 py-1 align-top">2. Alamat Jemaat Asal</td><td className="w-3/4 py-1 align-top">: {formData.jemaatAsalAlamat}</td></tr><tr><td className="w-1/4 py-1 align-top">3. Nama Sekretaris</td><td className="w-3/4 py-1 align-top">: <span className="uppercase">{formData.jemaatAsalSekretaris}</span></td></tr><tr><td className="w-1/4 py-1 align-top">4. Telp/Email Aktif</td><td className="w-3/4 py-1 align-top">: {formData.jemaatAsalKontak}</td></tr></tbody></table><p className="mb-6">Demikian permohonan ini saya ajukan tanpa ada paksaan dari pihak manapun.</p><div className="flex justify-end pr-10"><div className="text-center w-64"><p>Tempat/Tanggal diajukan:</p><p className="mb-14">Surabaya, {formatDate(new Date())}</p><p className="border-t border-black pt-1 uppercase leading-none">( {formData.namaLengkap || '..........................'} )</p><p className="text-[11px] mt-1">Nama dan Tanda Tangan Pemohon</p></div></div></div><div className="mb-6 mt-10 pt-6 border-t-[1.5px] border-dashed border-gray-400"><p className="font-bold text-center mb-5 tracking-wide text-[13px]">DIISI OLEH SEKRETARIS JEMAAT</p><p className="font-bold mb-2 text-[13px]">C. DATA KEPUTUSAN MAJELIS</p><table className="w-full ml-4" style={{ borderCollapse: 'separate', borderSpacing: '0 6px' }}><tbody><tr><td className="w-[40%] py-1.5 align-bottom">1. Keputusan Majelis Tanggal</td><td className="w-[60%] py-1.5 border-b border-dotted border-gray-500 align-bottom">: </td></tr><tr><td className="w-[40%] py-1.5 align-bottom"> Nomor Keputusan</td><td className="w-[60%] py-1.5 border-b border-dotted border-gray-500 align-bottom">: </td></tr><tr><td className="w-[40%] py-1.5 align-bottom">2. Di proses tanggal</td><td className="w-[60%] py-1.5 border-b border-dotted border-gray-500 align-bottom">: </td></tr><tr><td className="w-[40%] py-1.5 align-bottom">3. Ketua Jemaat</td><td className="w-[60%] py-1.5 border-b border-dotted border-gray-500 align-bottom">: </td></tr><tr><td className="w-[40%] py-1.5 align-bottom">4. Gembala Jemaat</td><td className="w-[60%] py-1.5 border-b border-dotted border-gray-500 align-bottom">: </td></tr></tbody></table><div className="flex justify-end pr-10 mt-8"><div className="text-center w-64"><p className="mb-14">20........</p><p className="border-t border-black pt-1 leading-none">( ........................................ )</p><p className="text-[11px] mt-1">Nama dan Tanda Tangan Sekretaris Jemaat</p></div></div></div><div className="mt-8 pt-4 border-t border-gray-200 flex justify-between items-center text-[10px] text-gray-400 font-sans"><p>ACMS v.3.03</p><p>&copy; Copyright by PISGAH-BISDAC Team 2026</p></div></div>
                             </div>
                         </div>
                     </div>
@@ -1325,7 +1345,7 @@
                         <div className="flex flex-col sm:flex-row border-b border-navy-50 bg-navy-50/20">
                             <button onClick={() => setAdminTab('jadwal')} className={`flex-1 py-4 font-bold text-sm md:text-base text-center transition-colors ${adminTab === 'jadwal' ? 'bg-navy-900 text-gold-400 shadow-inner' : 'text-navy-600 hover:text-navy-900 hover:bg-navy-50/50'}`}>Kelola Jadwal</button>
                             <button onClick={() => setAdminTab('pelayan')} className={`flex-1 py-4 font-bold text-sm md:text-base text-center transition-colors border-l sm:border-t-0 border-t border-navy-50 ${adminTab === 'pelayan' ? 'bg-navy-900 text-gold-400 shadow-inner' : 'text-navy-600 hover:text-navy-900 hover:bg-navy-50/50'}`}>Kelola Pejabat</button>
-                            <button onClick={() => setAdminTab('pengaturan')} className={`flex-1 py-4 font-bold text-sm md:text-base text-center transition-colors border-l sm:border-t-0 border-t border-navy-50 ${adminTab === 'pengaturan' ? 'bg-navy-900 text-gold-400 shadow-inner' : 'text-navy-600 hover:text-navy-900 hover:bg-navy-50/50'}`}>Ganti Password</button>
+                            <button onClick={() => setAdminTab('pengaturan')} className={`flex-1 py-4 font-bold text-sm md:text-base text-center transition-colors border-l sm:border-t-0 border-t border-navy-50 ${adminTab === 'pengaturan' ? 'bg-navy-900 text-gold-400 shadow-inner' : 'text-navy-600 hover:text-navy-900 hover:bg-navy-50/50'}`}>Pengaturan Admin</button>
                         </div>
 
                         <div className={`p-4 md:p-6 ${adminTab === 'jadwal' ? 'bg-navy-50/30' : 'bg-white'}`}>
@@ -1374,7 +1394,7 @@
                                                     <tr>
                                                         <th className="p-4 text-[10px] md:text-xs font-black text-navy-500 uppercase tracking-widest text-center w-36">Tanggal</th>
                                                         {columns.map((col, i) => <th key={i} className="p-4 text-[10px] md:text-xs font-black text-navy-500 uppercase tracking-widest text-center">{col}</th>)}
-                                                        <th className="p-4 text-[10px] md:text-xs font-black text-navy-500 uppercase tracking-widest text-center w-28">Aksi</th>
+                                                        <th className="p-4 text-[10px] md:text-xs font-black text-navy-500 uppercase tracking-widest text-center w-1">Ubah</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody className="divide-y divide-navy-50 bg-white">
@@ -1671,7 +1691,7 @@
 
             const [jadwalDB, setJadwalDB] = React.useState({});
             const [dataPejabat, setDataPejabat] = React.useState(initialDataPejabat);
-            const [kategoriPejabat, setKategoriPejabat] = React.useState(["Hotline", "Kepemimpinan", "Keuangan", "Departemen & Pelayanan", "Lainnya"]);
+            const [kategoriPejabat, setKategoriPejabat] = React.useState(["Gembala", "Officers", "Departemen & Pelayanan", "Lainnya"]);
             const [youtubeUrl, setYoutubeUrl] = React.useState("https://www.youtube.com/embed/EAO55pnNsgs");
 
             // Token Admin (berisi password valid setelah login)
@@ -1795,7 +1815,7 @@
                         {/* Loading Spinner di Tengah */}
                         <div className="flex flex-col items-center justify-center mt-[-10vh]">
                             <div className="w-12 h-12 border-4 border-navy-100 border-t-gold-500 rounded-full animate-spin mb-4 shadow-sm"></div>
-                            <p className="text-navy-500 font-bold uppercase tracking-widest text-xs animate-pulse">loading...</p>
+                            <p className="text-navy-500 font-bold uppercase tracking-widest text-xs animate-pulse">Loading...</p>
                         </div>
                         {/* Logo diantara tengah dan bawah layar (25% dari bawah) */}
                         <div className="absolute bottom-[25%] flex flex-col items-center animate-fade-in">
@@ -1819,7 +1839,7 @@
                     <header className="hidden md:block bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-navy-50 shadow-sm">
                         <div className="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
                             <div className="flex items-center space-x-2">
-                                <img src="./PisgahColor.png" alt="PISGAH-BISDAC Logo" className="h-9 w-auto" />
+                                <img src="./PisgahLogoColor.png" alt="PISGAH-BISDAC Logo" className="h-9 w-auto" />
                             </div>
                             <nav className="flex space-x-2">
                                 {tabs.map(tab => {
@@ -1840,10 +1860,10 @@
                     <main className="flex-1 max-w-5xl mx-auto w-full p-4 md:p-8 pb-32 md:pb-12">
                         <div className="mb-6 md:mb-10">
                             <h2 className="text-2xl md:text-[2rem] font-bold text-navy-900 capitalize tracking-tight">
-                                {activeTab === 'home' ? 'WELCOME' : activeTab === 'belajar' ? 'Halaman Belajar' : activeTab.startsWith('belajar_') ? 'Detail Pembelajaran' : activeTab === 'keanggotaan' ? 'Keanggotaan Jemaat' : activeTab === 'member_baru' ? 'Permohonan Member Baru' : activeTab === 'pindah_masuk' ? 'Permohonan Pindah Masuk' : activeTab === 'hubungi' ? 'Hubungi Kami' : activeTab === 'form_acms' ? 'Formulir Pindah Masuk' : activeTab === 'susunan_ibadah' ? 'Susunan Ibadah' : activeTab === 'admin_dashboard' ? 'Dashboard Admin' : activeTab}
+                                {activeTab === 'home' ? 'Welcome to' : activeTab === 'belajar' ? 'Halaman Belajar' : activeTab.startsWith('belajar_') ? 'Detail Pembelajaran' : activeTab === 'keanggotaan' ? 'Keanggotaan Jemaat' : activeTab === 'member_baru' ? 'Permohonan Member Baru' : activeTab === 'pindah_masuk' ? 'Permohonan Pindah Masuk' : activeTab === 'hubungi' ? 'Hubungi Kami' : activeTab === 'form_acms' ? 'Formulir Pindah Masuk' : activeTab === 'susunan_ibadah' ? 'Susunan Ibadah' : activeTab === 'admin_dashboard' ? 'Dashboard Admin' : activeTab}
                             </h2>
                             {activeTab === 'home' && <p className="text-navy-500 font-medium mt-1">PISGAH - Batam International Seventh-Day Adventist Church</p>}
-                            {activeTab === 'admin_dashboard' && <p className="text-navy-500 font-medium mt-1">Kelola data dinamis untuk website PISGAH-BISDAC.</p>}
+                            {activeTab === 'admin_dashboard' && <p className="text-navy-500 font-medium mt-1">Kelola data dinamis untuk website PISGAH-BISDAC</p>}
                         </div>
                         {renderContent()}
                     </main>

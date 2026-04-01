@@ -3,14 +3,19 @@
 // Menyimpan peta antara nama Tab di Sheets dengan format data di Web App
 // =========================================================================
 var SCHEDULE_CONFIGS = [
-  { sheetName: "Jadwal Rabu", key: "petugas", headers: ["Tanggal", "Pemimpin Acara", "Renungan", "Tempat", "Persembahan Kas"] },
-  { sheetName: "Jadwal SS", key: "sekolahSabat", headers: ["Tanggal", "Pianis", "Pembawa Acara", "Ayat Inti & Doa Buka", "Berita Misi", "Doa Tutup"] },
-  { sheetName: "Jadwal Khotbah", key: "khotbah", headers: ["Tanggal", "Khotbah", "Pastoral Prayer", "Presider", "Cerita Anak-anak", "Lagu Pujian"] },
+  { sheetName: "Jadwal Rabu", key: "petugas", headers: ["Tanggal", "Pemimpin Acara", "Renungan", "Tempat", "Persembahan Kas", "Lagu Pujian"] },
+  { sheetName: "Jadwal SS", key: "sekolahSabat", headers: ["Tanggal", "Pianist", "Presider", "Ayat Inti & Doa Buka", "Berita Misi", "Doa Tutup"] },
+  { sheetName: "Jadwal Khotbah", key: "khotbah", headers: ["Tanggal", "Khotbah", "Doa Syafaat", "Presider", "Cerita Anak-anak", "Song Leader", "Lagu Pujian"] },
   { sheetName: "Jadwal Diakon", key: "diakon", headers: ["Tanggal", "Diakon"] },
   { sheetName: "Jadwal Musik", key: "musik", headers: ["Tanggal", "Pianis"] },
   { sheetName: "Jadwal Perjamuan", key: "perjamuan", headers: [
     "Tanggal",
-    "Anggur", "Roti", "Lipat Kain1", "Lipat Kain2",
+    "P. Roti & Anggur 1", "P. Roti & Anggur 2", "P. Roti & Anggur 3", "P. Roti & Anggur 4", "P. Roti & Anggur 5",
+    "P. Basuh Kaki 1", "P. Basuh Kaki 2", "P. Basuh Kaki 3",
+    "Pelayan Basuh Kaki 1", "Pelayan Basuh Kaki 2", "Pelayan Basuh Kaki 3",
+    "Pelayan Perjamuan (L1)", "Pelayan Perjamuan (L2)", "Pelayan Perjamuan (P1)", "Pelayan Perjamuan (P2)",
+    "Cuci Baskom 1", "Cuci Baskom 2", "Cuci Baskom 3", "Cuci Baskom 4",
+    "Cuci Alat Perjamuan"
   ]}
 ];
 
@@ -27,7 +32,7 @@ function checkAndInitSheets() {
     sPengaturan = ss.insertSheet("Pengaturan");
     sPengaturan.appendRow(["Konfigurasi", "Nilai"]);
     sPengaturan.appendRow(["PASSWORD", "admin"]);
-    sPengaturan.appendRow(["YOUTUBE_URL", "https://www.youtube.com/embed/EAO55pnNsgs"]);
+    sPengaturan.appendRow(["YOUTUBE_URL", "https://www.youtube-nocookie.com/embed?listType=playlist&list=UUz6rQ_5zP0Y0c8V7aKx2jLQ"]);
     sPengaturan.getRange("A1:B1").setFontWeight("bold");
     sPengaturan.setColumnWidth(1, 150);
     sPengaturan.setColumnWidth(2, 400);
@@ -42,18 +47,18 @@ function checkAndInitSheets() {
     sPejabat.setFrozenRows(1);
     
     var initialPejabat = [
-      ["gembala", "Gembala Jemaat", "Pdt. [Nama Gembala]", "62800000000", "https://ui-avatars.com/api/?name=Gembala+Jemaat&background=eff6ff&color=1e3a8a&size=128"],
-      ["ketua1", "Ketua Jemaat 1", "Bpk. [Nama Ketua 1]", "62800000000", "https://ui-avatars.com/api/?name=Ketua+1&background=eff6ff&color=1e3a8a&size=128"],
-      ["ketua2", "Ketua Jemaat 2", "Bpk. [Nama Ketua 2]", "62800000000", "https://ui-avatars.com/api/?name=Ketua+2&background=eff6ff&color=1e3a8a&size=128"],
-      ["sekretaris1", "Sekretaris 1", "Ibu [Nama Sekretaris 1]", "62800000000", "https://ui-avatars.com/api/?name=Sekretaris+1&background=f0fdf4&color=14532d&size=128"],
-      ["sekretaris2", "Sekretaris 2", "Bpk. [Nama Sekretaris 2]", "62800000000", "https://ui-avatars.com/api/?name=Sekretaris+2&background=f0fdf4&color=14532d&size=128"],
-      ["bendahara1", "Bendahara 1", "Ibu Ari Pahlawani", "62800000000", "https://ui-avatars.com/api/?name=Ari+Pahlawani&background=fffbeb&color=78350f&size=128"],
-      ["bendahara2", "Bendahara 2", "Ibu Kasfia Naibaho", "62800000000", "https://ui-avatars.com/api/?name=Kasfia+Naibaho&background=fffbeb&color=78350f&size=128"],
-      ["multimedia", "Multimedia", "Sdr. [Nama Multimedia]", "62800000000", "https://ui-avatars.com/api/?name=Multimedia&background=e0e7ff&color=3730a3&size=128"],
-      ["sound_system", "Sound System", "Sdr. [Nama Sound System]", "62800000000", "https://ui-avatars.com/api/?name=Sound+System&background=e0e7ff&color=3730a3&size=128"],
-      ["diakon", "Ketua Diakon & Diakones", "Bpk. [Nama Ketua Diakon]", "62800000000", "https://ui-avatars.com/api/?name=Diakon+Diakones&background=f3f4f6&color=1f2937&size=128"],
-      ["pemuda", "Ketua Pemuda", "Sdr. [Nama Ketua Pemuda]", "62800000000", "https://ui-avatars.com/api/?name=Ketua+Pemuda&background=faf5ff&color=581c87&size=128"]
-    ];
+			["gembala", "Gembala Jemaat", "Pdt. [Nama Gembala]", "62800000000", "https://ui-avatars.com/api/?name=Gembala+Jemaat&background=eff6ff&color=1e3a8a&size=128"],
+            ["ketua", "Ketua Jemaat", "Bpk. [Nama Ketua]", "62800000000", "https://ui-avatars.com/api/?name=Ketua+Jemaat&background=eff6ff&color=1e3a8a&size=128"],
+            ["sekertaris", "Sekertaris", "Bpk. [Nama Sekertaris]", "62800000000", "https://ui-avatars.com/api/?name=Sekertaris&background=eff6ff&color=1e3a8a&size=128"],
+            ["bendahara", "Bendahara", "Ibu [Nama Bendahara]", "62800000000", "https://ui-avatars.com/api/?name=Bendahara+Jemaat&background=f0fdf4&color=14532d&size=128"],
+            ["penginjilan", "Penginjilan", "Bpk. [Nama Penginjilan]", "62800000000", "https://ui-avatars.com/api/?name=Penginjilan+2&background=f0fdf4&color=14532d&size=128"],
+            ["ss", "Sekolah Sabat", "Ibu. [Nama Sekolah Sabat]", "62800000000", "https://ui-avatars.com/api/?name=Sekolah+Sabat&background=fffbeb&color=78350f&size=128"],
+            ["diakon", "Ketua Diakon", "Ibu. [Nama Ketua Diakon", "62800000000", "https://ui-avatars.com/api/?name=Ketua+Diakon&background=fffbeb&color=78350f&size=128"],
+            ["rumah", "Rumah Tangga", "Sdr. [Nama Rumah Tangga]", "62800000000", "https://ui-avatars.com/api/?name=Rumah+Tangga&background=e0e7ff&color=3730a3&size=128"],
+            ["pemuda", "Pemuda", "Sdr. [Nama Pemuda]", "62800000000", "https://ui-avatars.com/api/?name=Pemuda&background=e0e7ff&color=3730a3&size=128"],
+            ["hotline", "Hotline", "Bpk. [Nama Hotline]", "62800000000", "https://ui-avatars.com/api/?name=Hotline&background=f3f4f6&color=1f2937&size=128"],
+            ["komunikasi", "komunikasi", "Sdr. [Nama Komunikasi]", "62800000000", "https://ui-avatars.com/api/?name=Kominikasi&background=faf5ff&color=581c87&size=128"]
+];
     sPejabat.getRange(2, 1, initialPejabat.length, 5).setValues(initialPejabat);
   }
   
@@ -85,7 +90,7 @@ function doGet(e) {
   var sPengaturan = ss.getSheetByName("Pengaturan");
   var pengData = sPengaturan.getDataRange().getValues();
   var youtubeUrl = "https://www.youtube-nocookie.com/embed?listType=playlist&list=UUz6rQ_5zP0Y0c8V7aKx2jLQ";
-  var kategoriPejabat = ["Kepemimpinan", "Keuangan", "Departemen & Pelayanan", "Lainnya"];
+  var kategoriPejabat = ["Gembala", "Officers", "Departemen & Pelayanan", "Lainnya"];
   
   for (var i = 1; i < pengData.length; i++) {
     if (pengData[i][0] === "YOUTUBE_URL") youtubeUrl = pengData[i][1].toString();
@@ -135,7 +140,7 @@ function doGet(e) {
         if (isRabu) {
           jadwalDB[dateStr] = { title: "Ibadah Permintaan Doa (Rabu)", time: "19:30 WIB - selesai", petugas: [] };
         } else {
-          jadwalDB[dateStr] = { title: "Ibadah Sabat (Sabtu)", time: "10:00 - 13:00 WIB", sekolahSabatTime: "11:45 - 12:40 WIB", khotbahTime: "10:00 - 11:35 WIB", sekolahSabat: [], khotbah: [], diakon: [], musik: [], perjamuan: [] };
+          jadwalDB[dateStr] = { title: "Ibadah Sabat (Sabtu)", time: "10:00 - 13:00 WIB", sekolahSabatTime: "11:45 - 12:40 WIB", khotbahTime: "10:00 - 11:40 WIB", sekolahSabat: [], khotbah: [], diakon: [], musik: [], perjamuan: [] };
         }
       }
       
@@ -165,9 +170,9 @@ function doGet(e) {
       if (!jadwalDB[dateStr]) {
         var isRabu = new Date(dateStr + "T00:00:00").getDay() === 3;
         if (isRabu) {
-          jadwalDB[dateStr] = { title: "Ibadah Permintaan Doa (Rabu)", time: "19:00 WIB - selesai", petugas: [] };
+          jadwalDB[dateStr] = { title: "Ibadah Permintaan Doa (Rabu)", time: "19:30 - selesai", petugas: [] };
         } else {
-          jadwalDB[dateStr] = { title: "Ibadah Sabat (Sabtu)", time: "09:00 - 12:00 WIB", sekolahSabatTime: "09:00 - 10:30 WIB", khotbahTime: "10:30 - 12:00 WIB", sekolahSabat: [], khotbah: [], diakon: [], musik: [], perjamuan: [] };
+          jadwalDB[dateStr] = { title: "Ibadah Sabat (Sabtu)", time: "10:00 - 13:00 WIB", sekolahSabatTime: "11:45 - 12:40 WIB", khotbahTime: "10:00 - 11:40 WIB", sekolahSabat: [], khotbah: [], diakon: [], musik: [], perjamuan: [] };
         }
       }
       
