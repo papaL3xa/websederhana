@@ -1174,7 +1174,7 @@
                 }
                 if (subTab === 'perjamuan') {
                     const perjamuanMonths = [2, 5, 8, 11];
-                    if (perjamuanMonths.includes(viewMonth)) return [dates[dates.length - 1]];
+                    if (perjamuanMonths.includes(viewMonth)) return dates;
                     return [];
                 }
                 return dates;
