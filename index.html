@@ -1080,6 +1080,202 @@
             const [isSavingPengumuman, setIsSavingPengumuman] = React.useState(false);
 
             // ==========================================
+            // TAMBAHAN: State & Fungsi untuk Kelola Jadwal
+            // ==========================================
+            const scrollContainerRef = React.useRef(null);
+            const scrollTabs = (direction) => {
+                if (scrollContainerRef.current) {
+                    scrollContainerRef.current.scrollBy({ left: direction === 'left' ? -200 : 200, behavior: 'smooth' });
+                }
+            };
+
+            const subTabs = [
+                { id: 'rabu', label: 'Ibadah Rabu' },
+                { id: 'khotbah', label: 'Khotbah / Umum' },
+                { id: 'ss', label: 'Sekolah Sabat' },
+                { id: 'diakon', label: 'Diakon & Diakones' },
+                { id: 'musik', label: 'Pelayanan Musik' },
+                { id: 'susunanAcara', label: 'Susunan Acara' },
+                { id: 'perjamuan', label: 'Perjamuan Kudus' }
+            ];
+
+            const [subTab, setSubTab] = React.useState('rabu');
+            const [editingDate, setEditingDate] = React.useState(null);
+            const [viewMonth, setViewMonth] = React.useState(new Date().getMonth());
+            const [viewYear, setViewYear] = React.useState(new Date().getFullYear());
+
+            const monthNames = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+            const prevMonth = () => { if (viewMonth === 0) { setViewMonth(11); setViewYear(viewYear - 1); } else { setViewMonth(viewMonth - 1); } setEditingDate(null); };
+            const nextMonth = () => { if (viewMonth === 11) { setViewMonth(0); setViewYear(viewYear + 1); } else { setViewMonth(viewMonth + 1); } setEditingDate(null); };
+            const getTriwulan = (m) => Math.floor(m / 3) + 1;
+            
+            const isRabu = subTab === 'rabu';
+            const currentSubTabLabel = subTabs.find(t => t.id === subTab)?.label || '';
+
+            const targetDates = React.useMemo(() => {
+                const dates = [];
+                const date = new Date(viewYear, viewMonth, 1);
+                const targetDay = isRabu ? 3 : 6;
+                while (date.getMonth() === viewMonth) {
+                    if (date.getDay() === targetDay) dates.push(toYMD(date));
+                    date.setDate(date.getDate() + 1);
+                }
+                if (subTab === 'perjamuan') {
+                    const perjamuanMonths = [2, 5, 9, 11];
+                    if (perjamuanMonths.includes(viewMonth)) return [dates[dates.length - 1]];
+                    return [];
+                }
+                return dates;
+            }, [viewYear, viewMonth, isRabu, subTab]);
+
+            const columns = subTab === 'susunanAcara' ? ['Detail'] : ['Tugas', 'Nama / Keterangan'];
+
+            const getActiveArray = (row, tab) => {
+                if (tab === 'rabu') return row.petugas || [];
+                if (tab === 'ss') return row.sekolahSabat || [];
+                if (tab === 'khotbah') return row.khotbah || [];
+                if (tab === 'diakon') return row.diakon || [];
+                if (tab === 'musik') return row.musik || [];
+                if (tab === 'perjamuan') return row.perjamuan || [];
+                return [];
+            };
+
+            const [editForm, setEditForm] = React.useState({});
+            const [isSavingJadwal, setIsSavingJadwal] = React.useState(false);
+
+            const handleEditClick = (date) => {
+                setEditingDate(date);
+                const rowData = jadwalDB[date] || (isRabu ? initialJadwalRabu : initialJadwalSabat);
+                if (subTab === 'susunanAcara') {
+                    setEditForm({ ...defaultSusunan, ...(rowData.susunan || {}) });
+                } else {
+                    setEditForm(JSON.parse(JSON.stringify(getActiveArray(rowData, subTab))));
+                }
+            };
+
+            const handleEditFormChange = (index, value) => {
+                const newForm = [...editForm];
+                newForm[index].nama = value;
+                setEditForm(newForm);
+            };
+
+            const handleEditFormChangeSusunan = (field, value) => {
+                setEditForm(prev => ({ ...prev, [field]: value }));
+            };
+
+            const handleSaveRow = async (date) => {
+                setIsSavingJadwal(true);
+                try {
+                    const currentData = jadwalDB[date] || (isRabu ? initialJadwalRabu : initialJadwalSabat);
+                    let updatedRow = JSON.parse(JSON.stringify(currentData));
+                    if (subTab === 'susunanAcara') updatedRow.susunan = editForm;
+                    else if (subTab === 'rabu') updatedRow.petugas = editForm;
+                    else if (subTab === 'ss') updatedRow.sekolahSabat = editForm;
+                    else updatedRow[subTab] = editForm;
+
+                    const res = await fetch(GAS_API_URL, {
+                        method: 'POST',
+                        body: JSON.stringify({ action: 'saveJadwal', password: adminToken, date: date, data: updatedRow })
+                    });
+                    const result = await res.json();
+                    if (result.success) {
+                        setJadwalDB(prev => ({ ...prev, [date]: updatedRow }));
+                        setEditingDate(null);
+                    } else { alert("Gagal menyimpan jadwal."); }
+                } catch (err) { alert("Terjadi kesalahan."); }
+                setIsSavingJadwal(false);
+            };
+
+            const handleDeleteRow = async (date) => {
+                if(!window.confirm("Kembalikan ke jadwal default?")) return;
+                setIsSavingJadwal(true);
+                try {
+                    let updatedRow = jadwalDB[date] ? JSON.parse(JSON.stringify(jadwalDB[date])) : null;
+                    if (updatedRow) {
+                        if (subTab === 'susunanAcara') delete updatedRow.susunan;
+                        else if (subTab === 'rabu') delete updatedRow.petugas;
+                        else if (subTab === 'ss') delete updatedRow.sekolahSabat;
+                        else delete updatedRow[subTab];
+                    }
+                    const res = await fetch(GAS_API_URL, {
+                        method: 'POST',
+                        body: JSON.stringify({ action: 'saveJadwal', password: adminToken, date: date, data: updatedRow })
+                    });
+                    const result = await res.json();
+                    if (result.success) {
+                        setJadwalDB(prev => {
+                            const newDB = { ...prev };
+                            if(updatedRow) newDB[date] = updatedRow;
+                            else delete newDB[date];
+                            return newDB;
+                        });
+                    } else { alert("Gagal mereset jadwal."); }
+                } catch (err) { alert("Terjadi kesalahan."); }
+                setIsSavingJadwal(false);
+            };
+
+            // ==========================================
+            // TAMBAHAN: State & Fungsi untuk Drag & Drop Pejabat
+            // ==========================================
+            const [draggedItem, setDraggedItem] = React.useState(null);
+            const [isSavingPejabat, setIsSavingPejabat] = React.useState(false);
+
+            const handleDragStart = (e, item) => {
+                setDraggedItem(item);
+                e.dataTransfer.effectAllowed = 'move';
+                setTimeout(() => { e.target.classList.add('opacity-50'); }, 0);
+            };
+            
+            const handleDragEnd = (e) => {
+                setDraggedItem(null);
+                e.target.classList.remove('opacity-50');
+            };
+
+            const handleDragOver = (e) => {
+                e.preventDefault();
+                e.dataTransfer.dropEffect = 'move';
+            };
+
+            const handleDrop = (e, targetKategori) => {
+                e.preventDefault();
+                if (draggedItem && draggedItem.kategori !== targetKategori) {
+                    const newData = dataPejabat.map(p => p.id === draggedItem.id ? { ...p, kategori: targetKategori } : p);
+                    setDataPejabat(newData);
+                }
+            };
+
+            const handleTambahKategori = () => {
+                const name = prompt("Masukkan nama kategori baru:");
+                if (name && !kategoriPejabat.includes(name)) setKategoriPejabat([...kategoriPejabat, name]);
+            };
+
+            const handleHapusKategori = (kat) => {
+                if (window.confirm(`Hapus kategori "${kat}"? Semua pejabat di dalamnya akan pindah ke "Lainnya".`)) {
+                    setKategoriPejabat(kategoriPejabat.filter(k => k !== kat));
+                    setDataPejabat(dataPejabat.map(p => p.kategori === kat ? { ...p, kategori: "Lainnya" } : p));
+                }
+            };
+
+            const handleTambahPejabatBaru = (kat) => {
+                const newP = { id: 'pej_' + Date.now(), jabatan: "Jabatan Baru", nama: "Nama Pejabat", wa: "62800000000", img: "https://ui-avatars.com/api/?name=Baru&background=random", kategori: kat };
+                setDataPejabat([...dataPejabat, newP]);
+            };
+
+            const handleSimpanPejabat = async () => {
+                setIsSavingPejabat(true);
+                try {
+                    const res = await fetch(GAS_API_URL, {
+                        method: 'POST',
+                        body: JSON.stringify({ action: 'saveDataPejabat', password: adminToken, dataPejabat: dataPejabat, kategoriPejabat: kategoriPejabat })
+                    });
+                    const result = await res.json();
+                    if (result.success) alert("Data Pejabat & Kategori berhasil disimpan!");
+                    else alert("Gagal menyimpan data.");
+                } catch (err) { alert("Terjadi kesalahan saat menyimpan data pejabat."); }
+                setIsSavingPejabat(false);
+            };
+
+            // ==========================================
             // PERBAIKAN: Menambahkan handleChangePassword
             // ==========================================
             const handleChangePassword = async (e) => {
